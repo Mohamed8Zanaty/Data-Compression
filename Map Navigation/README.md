@@ -1,1 +1,0 @@
-# Science-Tech-25-Projects'25
