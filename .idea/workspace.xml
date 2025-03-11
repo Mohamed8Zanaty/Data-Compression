@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d057c2b5-4cbb-4a69-a4af-91bce4ee2d6d" name="Changes" comment="solving conflicts" />
+    <list default="true" id="d057c2b5-4cbb-4a69-a4af-91bce4ee2d6d" name="Changes" comment="solving conflicts">
+      <change beforePath="$PROJECT_DIR$/Data_Compression/src/main/java/com/example/data_compression/logic/Hoffman.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_Compression/src/main/java/com/example/data_compression/logic/Huffman.java" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Compression/src/main/java/com/example/data_compression/logic/Huffman.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +78,7 @@
       <workItem from="1741482699080" duration="1686000" />
       <workItem from="1741484392347" duration="211000" />
       <workItem from="1741651513104" duration="740000" />
-      <workItem from="1741652374707" duration="304000" />
+      <workItem from="1741652374707" duration="650000" />
     </task>
     <task id="LOCAL-00001" summary="solving conflicts">
       <option name="closed" value="true" />
@@ -101,7 +104,31 @@
       <option name="project" value="LOCAL" />
       <updated>1741652478303</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="solving conflicts">
+      <option name="closed" value="true" />
+      <created>1741652798831</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741652798831</updated>
+    </task>
+    <task id="LOCAL-00005" summary="solving conflicts">
+      <option name="closed" value="true" />
+      <created>1741652848662</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741652848662</updated>
+    </task>
+    <task id="LOCAL-00006" summary="solving conflicts">
+      <option name="closed" value="true" />
+      <created>1741653023613</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1741653023613</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
