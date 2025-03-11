@@ -10,6 +10,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/encode-text" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -42,9 +45,9 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "V1",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/zanaty/repos/S-T-25-Data-compression",
+    "last_opened_file_path": "/home/zanaty/repos/temp/S-T-25-Data-compression",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,6 +74,7 @@
       <updated>1741482697879</updated>
       <workItem from="1741482699080" duration="1686000" />
       <workItem from="1741484392347" duration="211000" />
+      <workItem from="1741651513104" duration="740000" />
     </task>
     <task id="LOCAL-00001" summary="solving conflicts">
       <option name="closed" value="true" />
@@ -99,13 +103,26 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="V1" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge remote-tracking branch 'origin/encode-text' into V1&#10;&#10;# Conflicts:&#10;#&#9;Data_Compression/src/main/java/com/example/data_compression/logic/Hoffman.java" />
     <MESSAGE value="solving conflicts" />
     <option name="LAST_COMMIT_MESSAGE" value="solving conflicts" />
   </component>
