@@ -10,7 +10,52 @@ public class Huffman {
             this.frequency = frequency;
         }
     }
-    // ashraf
+    
+    // maro
+    public Map<Integer, Integer> getPixelFrequencies(int[][] image) {
+        if (image == null || image.length == 0) {
+            throw new IllegalArgumentException("Mat7otesh 7aga fadya");
+        }
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+
+        for (int[] row : image) {
+            for (int pixel : row) {
+                frequencyMap.put(pixel, frequencyMap.getOrDefault(pixel, 0) + 1);
+            }
+        }
+        return frequencyMap;
+    }
+
+    public static int compareHuffmanNodes(HuffmanNode a, HuffmanNode b) {
+        return a.frequency - b.frequency;
+    }
+
+    public HuffmanNode buildHuffmanTree(Map<Integer, Integer> frequencyMap) {
+        if (frequencyMap == null || frequencyMap.isEmpty()) {
+            throw new IllegalArgumentException("Cringe Man!");
+        }
+        PriorityQueue<HuffmanNode> queue = new PriorityQueue<>(Huffman::compareHuffmanNodes);
+        // Create a Huffman node for each unique pixel value and add to priority queue
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            queue.add(new HuffmanNode(entry.getKey(), entry.getValue()));
+        }
+
+        // Build the Huffman tree by merging the two least frequent nodes
+        while (queue.size() > 1) {
+            HuffmanNode left = queue.poll();
+            HuffmanNode right = queue.poll();
+
+            // Create a parent node with combined frequency
+            HuffmanNode parent = new HuffmanNode(-1, left.frequency + right.frequency);
+            parent.left = left;
+            parent.right = right;
+
+            queue.add(parent);
+        }
+
+        return queue.poll(); // Root of the Huffman tree
+    }
+        // ashraf
     public static void encode(HuffmanNode root, String s, HashMap<int, String> huffmancode) {
         if (root == null) return;
         if (root.left == null && root.right == null) {
