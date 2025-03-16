@@ -73,6 +73,50 @@ public class Huffman {
         serializeHuffmanTree( curNode.left, savedTree);
 
     }
+    public static void storeHuffmanTree(HuffmanNode root,String fName) throws IOException {
+        ObjectOutputStream writein=new ObjectOutputStream(new FileOutputStream(fName));
+        writein.writeObject(root);
+        System.out.println("sussefely storing tree");
+
+    }
+    public static HuffmanNode exportHuffmanTree( String fName) throws IOException, ClassNotFoundException {
+        ObjectInputStream readout=new ObjectInputStream(new FileInputStream(fName));
+        HuffmanNode r=  ( HuffmanNode ) readout.readObject();
+        System.out.println("exporting Done succefullly ");
+        return r;
+
+}
+    public int[][] decodeHuffman(HuffmanNode root, String encodedString, int width, int height) {
+        if (root == null || encodedString == null || encodedString.isEmpty()) {
+            throw new IllegalArgumentException("Invalid input data.");
+        }
+
+        int[][] image = new int[height][width];
+        HuffmanNode current = root;
+        int row = 0, col = 0;
+
+        for (char bit : encodedString.toCharArray()) {
+            current = (bit == '0') ? current.left : current.right;
+
+
+            if (current.left == null && current.right == null) {
+                image[row][col] = current.value;
+
+
+                col++;
+                if (col == width) {
+                    col = 0;
+                    row++;
+                }
+
+                current = root;
+
+             
+                if (row == height) break;
+            }
+        }
+        return image; // Return the reconstructed image
+    }
 
 
 
