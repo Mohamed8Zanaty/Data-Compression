@@ -56,14 +56,13 @@ public class Huffman {
         return queue.poll(); // Root of the Huffman tree
     }
         // ashraf
-    public static void encode(HuffmanNode root, String s, HashMap<int, String> huffmancode) {
-        if (root == null) return;
-        if (root.left == null && root.right == null) {
-            huffmancode.put(root.value, s);
+        public static String encodeText(String text, HashMap<character, String> huffmanCode) {
+            StringBuilder encodedString = new StringBuilder();
+            for (char ch : text.toCharArray()) {
+                encodedString.append(huffmanCode.get(ch));
+            }
+            return encodedString.toString();
         }
-        encode(root.left, s + "0", huffmancode);
-        encode(root.right, s + "1", huffmancode);
-    }
 
     // fatma
     private static HashMap<int, String> generateCodes(HoffmanNode root){

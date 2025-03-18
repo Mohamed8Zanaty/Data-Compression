@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d057c2b5-4cbb-4a69-a4af-91bce4ee2d6d" name="Changes" comment="solving conflicts" />
+    <list default="true" id="d057c2b5-4cbb-4a69-a4af-91bce4ee2d6d" name="Changes" comment="solving conflicts">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_9_25,_3_48 AM_[Changes]/shelved.patch" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,12 +29,12 @@
     &quot;assignee&quot;: &quot;Mohamed8Zanaty&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Open-Source-Community/S-T-25-Data-compression.git&quot;,
-    &quot;accountId&quot;: &quot;949fe2f1-0d23-4ef0-870a-c5a04f7017e5&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Open-Source-Community/S-T-25-Data-compression.git",
+    "accountId": "2fb190e6-1260-4ccb-989a-ee90f4bc25b5"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -45,7 +47,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "V1",
+    "git-widget-placeholder": "encode__function",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Mohamed/OneDrive/Desktop/osc-Project",
