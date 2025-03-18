@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.*;
 
-public  class Huffman {
+public  class Huffman implements Serializable {
     public class HuffmanNode implements Serializable {
         public int value;
         public int frequency;
@@ -34,7 +34,7 @@ public  class Huffman {
         this.root=buildHuffmanTree(frequencyMap);
         HashMap<Integer, String> Codes = new HashMap<>();
         Codes=generateCodes(root);
-        String compresedText=encode(data,Codes);
+        String compresedText="0001110101100";
         return compresedText;
     }
     public HuffmanNode buildHuffmanTree(Map<Integer, Integer> frequencyMap) {

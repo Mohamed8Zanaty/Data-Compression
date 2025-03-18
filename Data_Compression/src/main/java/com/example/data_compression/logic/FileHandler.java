@@ -5,19 +5,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class FileHandler {
-    public static void writeData(String data,int operation)  {
-        if(operation==1)
-        {
-           try(FileWriter decompressedFile = new FileWriter("decompressed_file.txt")){
-               decompressedFile.write(data);
-           } catch (IOException e){
-               System.out.println("Error Writing file"+e.getMessage());
-           }
-        }
-        else{
+    public static void writecompresedData(String data, Huffman.HuffmanNode root)  {
                 try( ObjectOutputStream compressedFile = new ObjectOutputStream(new FileOutputStream("compressed_file.bin"))){
                     Huffman huffman = new Huffman();
-                    Huffman.HuffmanNode root= huffman.getRoot();
                     if(root==null){
                         System.out.println("Root is null.");
                         return;
@@ -34,8 +24,14 @@ public class FileHandler {
                     byte [] compressedData=bits.toByteArray();
                     compressedFile.write(compressedData);
                 }catch(IOException e){
-                System.out.println("Error Writing file"+e.getMessage());
+                e.printStackTrace();
             }
+    }
+    public static void writedecompressedData(String data)  {
+        try(FileWriter decompressedFile = new FileWriter("decompressed_file.txt")){
+            decompressedFile.write(data);
+        } catch (IOException e){
+            System.out.println("Error Writing file"+e.getMessage());
         }
     }
 }
