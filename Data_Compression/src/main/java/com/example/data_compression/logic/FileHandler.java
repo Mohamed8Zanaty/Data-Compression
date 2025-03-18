@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import java.io.*;
 import java.util.BitSet;
-import java.util.Map;
+
 public class FileHandler {
+    // start zanaty
     public String readTextFile(String path) {
         try (BufferedReader br = Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8)) {
             StringBuilder contentBuilder = new StringBuilder();
@@ -28,6 +28,8 @@ public class FileHandler {
         }
 
     }
+    // end zanaty
+
   // Write encoded Image and Huffman codes to a file
 //    public static void writeCompressedImage(String encodedImage, Map<Integer, String> huffmanCodes, String filePath) {
 //        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -46,6 +48,8 @@ public class FileHandler {
 //        }
 //    }
 
+
+    // start maro
     public static int[][] readImage(String path) throws IOException {
         BufferedImage image = ImageIO.read(new File(path));
         int width = image.getWidth();
@@ -85,8 +89,10 @@ public class FileHandler {
         }
         ImageIO.write(image, "png", new File(path)); // Save as PNG
     }
+    // end maro
 
-    public static void writecompresedData(String data, Huffman.HuffmanNode root)  {
+    // start fatma
+    public static void writeCompressedData(String data, Huffman.HuffmanNode root)  {
                 try( ObjectOutputStream compressedFile = new ObjectOutputStream(new FileOutputStream("compressed_file.bin"))){
                     Huffman huffman = new Huffman();
                     if(root==null){
@@ -108,11 +114,12 @@ public class FileHandler {
                 e.printStackTrace();
             }
     }
-    public static void writedecompressedData(String data)  {
+    public static void writeDecompressedData(String data)  {
         try(FileWriter decompressedFile = new FileWriter("decompressed_file.txt")){
             decompressedFile.write(data);
         } catch (IOException e){
-            System.out.println("Error Writing file"+e.getMessage());
+            e.printStackTrace();
         }
     }
+    // end fatma
 }

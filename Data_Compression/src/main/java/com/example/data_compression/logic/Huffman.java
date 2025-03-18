@@ -1,11 +1,7 @@
 package com.example.data_compression.logic;
-
 import java.io.*;
-import javafx.beans.binding.IntegerBinding;
-
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 public  class Huffman implements Serializable {
@@ -13,6 +9,7 @@ public  class Huffman implements Serializable {
         public int value;
         public int frequency;
         public HuffmanNode left, right;
+
         HuffmanNode(int value, int frequency) {
             this.value = value;
             this.frequency = frequency;
@@ -22,49 +19,49 @@ public  class Huffman implements Serializable {
     // start fatma
 
     private HuffmanNode root;
-    public HuffmanNode getRoot(){
+    public HuffmanNode getRoot() {
 
         return this.root;
     }
 
-    public String compress(String data){
+    public String compress(String data) {
         HashMap<Integer, Integer> frequencyMap = new HashMap<>();
-        for(int i=0;i<data.length();i++){
-            int character = (int)data.charAt(i);
-            if(frequencyMap.containsKey(character)){
-                frequencyMap.put(character,(frequencyMap.get(character)+1));
-            }else{
-                frequencyMap.put(character,1);
+        for (int i = 0; i < data.length(); i++) {
+            int character = (int) data.charAt(i);
+            if (frequencyMap.containsKey(character)) {
+                frequencyMap.put(character, (frequencyMap.get(character) + 1));
+            } else {
+                frequencyMap.put(character, 1);
             }
         }
-        this.root=buildHuffmanTree(frequencyMap);
+        this.root = buildHuffmanTree(frequencyMap);
         HashMap<Integer, String> Codes = new HashMap<>();
-        Codes=generateCodes(root);
-        String compresedText= encodeText(data, Codes);
+        Codes = generateCodes(root);
+        String compresedText = encodeText(data, Codes);
         return compresedText;
     }
 
-    private static HashMap<Integer, String> generateCodes(HuffmanNode root){
-        if (root==null)
+    private static HashMap<Integer, String> generateCodes(HuffmanNode root) {
+        if (root == null)
             return null;
         HashMap<Integer, String> Codes = new HashMap<>();
         StringBuilder binaryCode = new StringBuilder();
-        recursiveHelper(root,binaryCode,Codes);
+        recursiveHelper(root, binaryCode, Codes);
         return Codes;
     }
 
-    private static void recursiveHelper(HuffmanNode node,StringBuilder binaryCode,HashMap<Integer, String> Codes){
-        if(node.left==null && node.right==null){
-            Codes.put(node.value,binaryCode.toString());
+    private static void recursiveHelper(HuffmanNode node, StringBuilder binaryCode, HashMap<Integer, String> Codes) {
+        if (node.left == null && node.right == null) {
+            Codes.put(node.value, binaryCode.toString());
             return;
         }
         binaryCode.append("1");
-        recursiveHelper(node.right,binaryCode,Codes);
+        recursiveHelper(node.right, binaryCode, Codes);
         int length = binaryCode.length();
-        binaryCode.deleteCharAt(length-1);
+        binaryCode.deleteCharAt(length - 1);
         binaryCode.append("0");
-        recursiveHelper(node.left,binaryCode,Codes);
-        binaryCode.deleteCharAt(length-1);
+        recursiveHelper(node.left, binaryCode, Codes);
+        binaryCode.deleteCharAt(length - 1);
     }
     // end fatma
 
@@ -82,19 +79,21 @@ public  class Huffman implements Serializable {
 
     }
 
-    public static void storeHuffmanTree(HuffmanNode root,String fName) throws IOException {
-        ObjectOutputStream writein=new ObjectOutputStream(new FileOutputStream(fName));
+    public static void storeHuffmanTree(HuffmanNode root, String fName) throws IOException {
+        ObjectOutputStream writein = new ObjectOutputStream(new FileOutputStream(fName));
         writein.writeObject(root);
         System.out.println("sussefely storing tree");
 
     }
-    public static HuffmanNode exportHuffmanTree( String fName) throws IOException, ClassNotFoundException, IOException {
-        ObjectInputStream readout=new ObjectInputStream(new FileInputStream(fName));
-        HuffmanNode r=  ( HuffmanNode ) readout.readObject();
+
+    public static HuffmanNode exportHuffmanTree(String fName) throws IOException, ClassNotFoundException, IOException {
+        ObjectInputStream readout = new ObjectInputStream(new FileInputStream(fName));
+        HuffmanNode r = (HuffmanNode) readout.readObject();
         System.out.println("exporting Done succefullly ");
         return r;
 
     }
+
     public int[][] decodeHuffman(HuffmanNode root, String encodedString, int width, int height) {
         if (root == null || encodedString == null || encodedString.isEmpty()) {
             throw new IllegalArgumentException("Invalid input data.");
@@ -126,7 +125,6 @@ public  class Huffman implements Serializable {
         }
         return image; // Return the reconstructed image
     }
-
     // end marwa
 
     // start maro
@@ -141,11 +139,7 @@ public  class Huffman implements Serializable {
                 frequencyMap.put(pixel, frequencyMap.getOrDefault(pixel, 0) + 1);
             }
         }
-        this.root=buildHuffmanTree(frequencyMap);
-        HashMap<Integer, String> Codes = new HashMap<>();
-        Codes=generateCodes(root);
-        String compresedText="0001110101100";
-        return compresedText;
+        return frequencyMap;
     }
 
     public static int compareHuffmanNodes(HuffmanNode a, HuffmanNode b) {
@@ -178,21 +172,17 @@ public  class Huffman implements Serializable {
 
         return queue.poll(); // Root of the Huffman tree
     }
-
     // end maro
 
     // start shahd
-    public static String encodeImage(int[][] image, HashMap<Integer, String> huffmanCodes){
-
+    public static String encodeImage(int[][] image, HashMap<Integer, String> huffmanCodes) {
         StringBuilder encodedImage = new StringBuilder(); //StringBuilder is created to efficiently build the encoded string
         for (int[] row : image) {
             for (int pixel : row) {
                 encodedImage.append(huffmanCodes.get(pixel));
             }
         }
-
-        return  encodedImage.toString();
-
+        return encodedImage.toString();
     }
     // end shahd
 
@@ -204,6 +194,7 @@ public  class Huffman implements Serializable {
         }
         return encodedString.toString();
     }
+
     public static void decode(HuffmanNode root, int[] index, String s) {
         if (root == null) return;
         if (root.left == null && root.right == null) {
@@ -216,7 +207,7 @@ public  class Huffman implements Serializable {
                 decode(root.left, index, s);
             else
                 decode(root.right, index, s);
-
-
-
+        }
+    }
+    // end ashraf
 }
