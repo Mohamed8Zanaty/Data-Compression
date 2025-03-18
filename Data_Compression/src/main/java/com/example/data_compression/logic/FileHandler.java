@@ -42,8 +42,4 @@ public class FileHandler {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
-
-
-
-
 }
