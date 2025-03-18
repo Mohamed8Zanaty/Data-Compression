@@ -1,11 +1,15 @@
 package com.example.data_compression.logic;
 
 import java.io.*;
+import javafx.beans.binding.IntegerBinding;
+
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.PriorityQueue;
 
-public class Huffman {
-    private class HuffmanNode {
+public  class Huffman implements Serializable {
+    public class HuffmanNode implements Serializable {
         public int value;
         public int frequency;
         public HuffmanNode left, right;
@@ -16,6 +20,30 @@ public class Huffman {
     }
 
     // start fatma
+
+    private HuffmanNode root;
+    public HuffmanNode getRoot(){
+
+        return this.root;
+    }
+
+    public String compress(String data){
+        HashMap<Integer, Integer> frequencyMap = new HashMap<>();
+        for(int i=0;i<data.length();i++){
+            int character = (int)data.charAt(i);
+            if(frequencyMap.containsKey(character)){
+                frequencyMap.put(character,(frequencyMap.get(character)+1));
+            }else{
+                frequencyMap.put(character,1);
+            }
+        }
+        this.root=buildHuffmanTree(frequencyMap);
+        HashMap<Integer, String> Codes = new HashMap<>();
+        Codes=generateCodes(root);
+        String compresedText= encodeText(data, Codes);
+        return compresedText;
+    }
+
     private static HashMap<Integer, String> generateCodes(HuffmanNode root){
         if (root==null)
             return null;
@@ -113,7 +141,11 @@ public class Huffman {
                 frequencyMap.put(pixel, frequencyMap.getOrDefault(pixel, 0) + 1);
             }
         }
-        return frequencyMap;
+        this.root=buildHuffmanTree(frequencyMap);
+        HashMap<Integer, String> Codes = new HashMap<>();
+        Codes=generateCodes(root);
+        String compresedText="0001110101100";
+        return compresedText;
     }
 
     public static int compareHuffmanNodes(HuffmanNode a, HuffmanNode b) {
@@ -184,8 +216,7 @@ public class Huffman {
                 decode(root.left, index, s);
             else
                 decode(root.right, index, s);
-        }
-    }
-    // end ashraf
+
+
 
 }

@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import java.io.*;
+import java.util.BitSet;
 import java.util.Map;
 public class FileHandler {
     public String readTextFile(String path) {
@@ -85,4 +86,33 @@ public class FileHandler {
         ImageIO.write(image, "png", new File(path)); // Save as PNG
     }
 
+    public static void writecompresedData(String data, Huffman.HuffmanNode root)  {
+                try( ObjectOutputStream compressedFile = new ObjectOutputStream(new FileOutputStream("compressed_file.bin"))){
+                    Huffman huffman = new Huffman();
+                    if(root==null){
+                        System.out.println("Root is null.");
+                        return;
+                    }
+                    compressedFile.writeObject(root);
+                    compressedFile.writeInt(data.length());
+                    BitSet bits = new BitSet();
+                    for(int i=0;i<data.length();i++){
+                        if(data.charAt(i)=='1')
+                        {
+                            bits.set(i);
+                        }
+                    }
+                    byte [] compressedData=bits.toByteArray();
+                    compressedFile.write(compressedData);
+                }catch(IOException e){
+                e.printStackTrace();
+            }
+    }
+    public static void writedecompressedData(String data)  {
+        try(FileWriter decompressedFile = new FileWriter("decompressed_file.txt")){
+            decompressedFile.write(data);
+        } catch (IOException e){
+            System.out.println("Error Writing file"+e.getMessage());
+        }
+    }
 }
