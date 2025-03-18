@@ -1,7 +1,12 @@
 package com.example.data_compression.logic;
+import javafx.beans.binding.IntegerBinding;
+
+import java.io.Serializable;
 import java.util.HashMap;
-public class Huffman {
-    private  class HuffmanNode {
+import java.util.*;
+
+public  class Huffman {
+    public class HuffmanNode implements Serializable {
         public int value;
         public int frequency;
         public HuffmanNode left, right;
@@ -10,26 +15,28 @@ public class Huffman {
             this.frequency = frequency;
         }
     }
-    
-    // maro
-    public Map<Integer, Integer> getPixelFrequencies(int[][] image) {
-        if (image == null || image.length == 0) {
-            throw new IllegalArgumentException("Mat7otesh 7aga fadya");
-        }
-        Map<Integer, Integer> frequencyMap = new HashMap<>();
+    private HuffmanNode root;
+    public HuffmanNode getRoot(){
 
-        for (int[] row : image) {
-            for (int pixel : row) {
-                frequencyMap.put(pixel, frequencyMap.getOrDefault(pixel, 0) + 1);
+        return this.root;
+    }
+
+    public String compress(String data){
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for(int i=0;i<data.length();i++){
+            int character = (int)data.charAt(i);
+            if(frequencyMap.containsKey(character)){
+                frequencyMap.put(character,(frequencyMap.get(character)+1));
+            }else{
+                frequencyMap.put(character,1);
             }
         }
-        return frequencyMap;
+        this.root=buildHuffmanTree(frequencyMap);
+        HashMap<Integer, String> Codes = new HashMap<>();
+        Codes=generateCodes(root);
+        String compresedText=encode(data,Codes);
+        return compresedText;
     }
-
-    public static int compareHuffmanNodes(HuffmanNode a, HuffmanNode b) {
-        return a.frequency - b.frequency;
-    }
-
     public HuffmanNode buildHuffmanTree(Map<Integer, Integer> frequencyMap) {
         if (frequencyMap == null || frequencyMap.isEmpty()) {
             throw new IllegalArgumentException("Cringe Man!");
@@ -55,27 +62,49 @@ public class Huffman {
 
         return queue.poll(); // Root of the Huffman tree
     }
-        // ashraf
-    public static void encode(HuffmanNode root, String s, HashMap<int, String> huffmancode) {
-        if (root == null) return;
-        if (root.left == null && root.right == null) {
-            huffmancode.put(root.value, s);
+
+
+    // maro
+    public Map<Integer, Integer> getPixelFrequencies(int[][] image) {
+        if (image == null || image.length == 0) {
+            throw new IllegalArgumentException("Mat7otesh 7aga fadya");
         }
-        encode(root.left, s + "0", huffmancode);
-        encode(root.right, s + "1", huffmancode);
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+
+        for (int[] row : image) {
+            for (int pixel : row) {
+                frequencyMap.put(pixel, frequencyMap.getOrDefault(pixel, 0) + 1);
+            }
+        }
+        return frequencyMap;
     }
 
+    public static int compareHuffmanNodes(HuffmanNode a, HuffmanNode b) {
+        return a.frequency - b.frequency;
+    }
+
+
+        // ashraf
+//    public static String encode(String s, HashMap<Integer, String> huffmancode) {
+//        if (root == null) return;
+//        if (root.left == null && root.right == null) {
+//            huffmancode.put(root.value, s);
+//        }
+//        encode(root.left, s + "0", huffmancode);
+//        encode(root.right, s + "1", huffmancode);
+//    }
+
     // fatma
-    private static HashMap<int, String> generateCodes(HoffmanNode root){
+    private static HashMap<Integer,String> generateCodes(HuffmanNode root){
         if (root==null)
             return null;
-        HashMap<int, String> Codes = new HashMap<>();
+        HashMap<Integer, String> Codes = new HashMap<>();
         StringBuilder binaryCode = new StringBuilder();
         recursiveHelper(root,binaryCode,Codes);
         return Codes;
     }
     // fatma
-    private static void recursiveHelper(HoffmanNode node,StringBuilder binaryCode,HashMap<int, String> Codes){
+    private static void recursiveHelper(HuffmanNode node,StringBuilder binaryCode,HashMap<Integer, String> Codes){
         if(node.left==null && node.right==null){
             Codes.put(node.value,binaryCode.toString());
             return;
@@ -105,10 +134,10 @@ public class Huffman {
     }
 
     // save huffman tree to be used in decoding as string
-    // stringbuider for better memmory
+    // stringbuider for better memory
     public void serializeHuffmanTree(HuffmanNode curNode, StringBuilder savedTree) {
         if (curNode.right == null && curNode.left == null) {
-            savedTree.append("P").append(curNode.character).append(" ");
+            savedTree.append("P").append(curNode.value).append(" ");
             return;
         } else {
             savedTree.append("OSC"); //internal node

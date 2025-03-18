@@ -1,4 +1,6 @@
 package com.example.data_compression;
+import com.example.data_compression.logic.Huffman;
+import com.example.data_compression.logic.FileHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +16,6 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
+    public static void main(String[] args) {launch();
     }
 }
