@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d057c2b5-4cbb-4a69-a4af-91bce4ee2d6d" name="Changes" comment="solving conflicts">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_9_25,_3_48 AM_[Changes]/shelved.patch" beforeDir="false" />
-    </list>
+    <list default="true" id="d057c2b5-4cbb-4a69-a4af-91bce4ee2d6d" name="Changes" comment="solving conflicts" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="buildHuffmanTree" />
+        <entry key="$PROJECT_DIR$" value="encode_function" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,12 +27,12 @@
     &quot;assignee&quot;: &quot;Mohamed8Zanaty&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Open-Source-Community/S-T-25-Data-compression.git",
-    "accountId": "2fb190e6-1260-4ccb-989a-ee90f4bc25b5"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Open-Source-Community/S-T-25-Data-compression.git&quot;,
+    &quot;accountId&quot;: &quot;2fb190e6-1260-4ccb-989a-ee90f4bc25b5&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -47,7 +45,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "encode__function",
+    "git-widget-placeholder": "decode__function",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Mohamed/OneDrive/Desktop/osc-Project",
@@ -62,8 +60,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
       </set>
     </attachedChunks>
   </component>
@@ -80,6 +78,7 @@
       <workItem from="1741651513104" duration="740000" />
       <workItem from="1741652374707" duration="980000" />
       <workItem from="1742008780942" duration="446000" />
+      <workItem from="1742264755169" duration="329000" />
     </task>
     <task id="LOCAL-00001" summary="solving conflicts">
       <option name="closed" value="true" />

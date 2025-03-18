@@ -63,7 +63,20 @@ public class Huffman {
             }
             return encodedString.toString();
         }
-
+        public static void decode(HoffmanNode root, int[] index, String s) {
+            if (root == null) return;
+            if (root.left == null && root.right == null) {
+                System.out.print(root.character);
+                return;
+            }
+            if (index[0] < s.length() - 1) {
+                index[0]++;
+                if (s.charAt(index[0]) == '0')
+                    decode(root.left, index, s);
+                else
+                    decode(root.right, index, s);
+            }
+        }
     // fatma
     private static HashMap<int, String> generateCodes(HoffmanNode root){
         if (root==null)
