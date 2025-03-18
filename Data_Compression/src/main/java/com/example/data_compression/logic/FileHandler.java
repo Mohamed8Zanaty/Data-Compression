@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.io.*;
+import java.util.Map;
 public class FileHandler {
     public String readTextFile(String path) {
         try (BufferedReader br = Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8)) {
@@ -23,4 +25,25 @@ public class FileHandler {
         }
 
     }
+  // Write encoded Image and Huffman codes to a file
+    public static void writeCompressedImage(String encodedImage, Map<Integer, String> huffmanCodes, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            // Write Huffman codes (each pixel and its corresponding code)
+            writer.write("Huffman Codes:\n");
+            for (Map.Entry<Integer, String> entry : huffmanCodes.entrySet()) {
+                writer.write(entry.getKey() + ":" + entry.getValue() + "\n");
+            }
+
+            writer.write("Encoded Image:\n");
+            writer.write(encodedImage);
+
+            System.out.println("Data successfully written to " + filePath);
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+
+
+
 }
