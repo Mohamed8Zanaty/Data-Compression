@@ -11,6 +11,7 @@ import java.io.*;
 import java.util.BitSet;
 
 public class FileHandler {
+
     // start zanaty
     public String readTextFile(String path) {
         try (BufferedReader br = Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8)) {
@@ -27,6 +28,39 @@ public class FileHandler {
             return "Error";
         }
 
+    }
+
+    public BinaryFileData readBinaryFile(String path) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("compressed_file.bin"))) {
+            // Read the Huffman tree root
+            Huffman.HuffmanNode root = (Huffman.HuffmanNode) in.readObject();
+
+
+            int dataLength = in.readInt();
+
+            // Read the compressed bytes
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            byte[] temp = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(temp)) != -1) {
+                buffer.write(temp, 0, bytesRead);
+            }
+            byte[] compressedData = buffer.toByteArray();
+
+            // Convert bytes back to BitSet
+            BitSet bitSet = BitSet.valueOf(compressedData);
+
+            // Reconstruct the original '0'/'1' bitstream string
+            StringBuilder bitstream = new StringBuilder();
+            for (int i = 0; i < dataLength; i++) {
+                bitstream.append(bitSet.get(i) ? '1' : '0');
+            }
+
+            return new BinaryFileData(bitstream.toString(), dataLength, root);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     // end zanaty
 
