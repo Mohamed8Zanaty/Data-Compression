@@ -30,8 +30,8 @@ public class FileHandler {
 
     }
 
-    public BinaryFileData readBinaryFile(String path) {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("compressed_file.bin"))) {
+    static public BinaryFileData readBinaryFile(String path) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {
             // Read the Huffman tree root
             Huffman.HuffmanNode root = (Huffman.HuffmanNode) in.readObject();
 
@@ -64,26 +64,52 @@ public class FileHandler {
     }
     // end zanaty
 
-  // Write encoded Image and Huffman codes to a file
-//    public static void writeCompressedImage(String encodedImage, Map<Integer, String> huffmanCodes, String filePath) {
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-//            // Write Huffman codes (each pixel and its corresponding code)
-//            writer.write("Huffman Codes:\n");
-//            for (Map.Entry<Integer, String> entry : huffmanCodes.entrySet()) {
-//                writer.write(entry.getKey() + ":" + entry.getValue() + "\n");
+
+//    // start maro
+//    public static int[][] readImage(String path) throws IOException {
+//        BufferedImage image = ImageIO.read(new File(path));
+//        int width = image.getWidth();
+//        int height = image.getHeight();
+//        int[][] pixels = new int[height][width];
+//
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                int rgb = image.getRGB(x, y);
+//
+//                if (image.getType() == BufferedImage.TYPE_BYTE_GRAY) {
+//                    // If image is already grayscale, extract the single channel
+//                    pixels[y][x] = rgb & 0xFF;
+//                } else {
+//                    // Convert color image to grayscale using the luminance formula
+//                    int r = (rgb >> 16) & 0xFF;
+//                    int g = (rgb >> 8) & 0xFF;
+//                    int b = rgb & 0xFF;
+//                    pixels[y][x] = (int) (0.2989 * r + 0.5870 * g + 0.1140 * b);
+//                }
 //            }
-//
-//            writer.write("Encoded Image:\n");
-//            writer.write(encodedImage);
-//
-//            System.out.println("Data successfully written to " + filePath);
-//        } catch (IOException e) {
-//            System.out.println("Error writing to file: " + e.getMessage());
 //        }
+//        return pixels;
 //    }
+//
+//    public static void writeImage(int[][] pixels, String path) throws IOException {
+//        int height = pixels.length;
+//        int width = pixels[0].length;
+//        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+//
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                int gray = pixels[y][x];  // Grayscale value (0-255)
+//                int rgb = (gray << 16) | (gray << 8) | gray; // Convert grayscale to RGB format
+//                image.setRGB(x, y, rgb);
+//            }
+//        }
+//        ImageIO.write(image, "png", new File(path)); // Save as PNG
+//    }
+//    // end maro
 
 
-    // start maro
+
+
     public static int[][] readImage(String path) throws IOException {
         BufferedImage image = ImageIO.read(new File(path));
         int width = image.getWidth();
@@ -92,19 +118,8 @@ public class FileHandler {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                int rgb = image.getRGB(x, y);
-
-                if (image.getType() == BufferedImage.TYPE_BYTE_GRAY) {
-                    // If image is already grayscale, extract the single channel
-                    pixels[y][x] = rgb & 0xFF;
-                } else {
-                    // Convert color image to grayscale using the luminance formula
-                    int r = (rgb >> 16) & 0xFF;
-                    int g = (rgb >> 8) & 0xFF;
-                    int b = rgb & 0xFF;
-                    pixels[y][x] = (int) (0.2989 * r + 0.5870 * g + 0.1140 * b);
-                }
-            }
+                pixels[y][x] = image.getRGB(x, y);
+           }
         }
         return pixels;
     }
@@ -112,22 +127,23 @@ public class FileHandler {
     public static void writeImage(int[][] pixels, String path) throws IOException {
         int height = pixels.length;
         int width = pixels[0].length;
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
-
+        //BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                int gray = pixels[y][x];  // Grayscale value (0-255)
-                int rgb = (gray << 16) | (gray << 8) | gray; // Convert grayscale to RGB format
-                image.setRGB(x, y, rgb);
+
+                image.setRGB(x, y, pixels[y][x]);
             }
         }
-        ImageIO.write(image, "png", new File(path)); // Save as PNG
+        ImageIO.write(image, "jpg", new File(path)); // Save as PNG X jpg
     }
-    // end maro
+
+
+
 
     // start fatma
-    public static void writeCompressedData(String data, Huffman.HuffmanNode root)  {
-                try( ObjectOutputStream compressedFile = new ObjectOutputStream(new FileOutputStream("compressed_file.bin"))){
+    public static void writeCompressedData(String data, Huffman.HuffmanNode root, String name)  {
+        try( ObjectOutputStream compressedFile = new ObjectOutputStream(new FileOutputStream(name))){
                     Huffman huffman = new Huffman();
                     if(root==null){
                         System.out.println("Root is null.");

@@ -41,7 +41,7 @@ public  class Huffman implements Serializable {
         return compresedText;
     }
 
-    private static HashMap<Integer, String> generateCodes(HuffmanNode root) {
+    public static HashMap<Integer, String> generateCodes(HuffmanNode root) {
         if (root == null)
             return null;
         HashMap<Integer, String> Codes = new HashMap<>();
