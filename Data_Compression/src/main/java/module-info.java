@@ -12,8 +12,8 @@ module com.example.data_compression {
     requires com.almasb.fxgl.all;
     requires java.desktop;
 
-    exports com.example.data_compression.gui_controll;
-    opens com.example.data_compression.gui_controll to javafx.fxml;
+//    exports com.example.data_compression.gui_controll;
+//    opens com.example.data_compression.gui_controll to javafx.fxml;
     exports com.example.data_compression;
     opens com.example.data_compression to javafx.fxml;
 }
