@@ -67,6 +67,7 @@ public  class Huffman implements Serializable {
 
     // start marwa
     //give each pixel binary code (less freq more bits)-(more freq less bits)
+    //repeatedddddd***********************
     public void generateHuffmanCodes(HuffmanNode curNode, String binCode, HashMap<Integer, String> pixelsCode) {
         if (curNode.right == null || curNode.left == null) {
             pixelsCode.put(curNode.frequency, binCode);
@@ -79,20 +80,20 @@ public  class Huffman implements Serializable {
 
     }
 
-    public static void storeHuffmanTree(HuffmanNode root, String fName) throws IOException {
-        ObjectOutputStream writein = new ObjectOutputStream(new FileOutputStream(fName));
-        writein.writeObject(root);
-        System.out.println("sussefely storing tree");
-
-    }
-
-    public static HuffmanNode exportHuffmanTree(String fName) throws IOException, ClassNotFoundException, IOException {
-        ObjectInputStream readout = new ObjectInputStream(new FileInputStream(fName));
-        HuffmanNode r = (HuffmanNode) readout.readObject();
-        System.out.println("exporting Done succefullly ");
-        return r;
-
-    }
+//    public static void storeHuffmanTree(HuffmanNode root, String fName) throws IOException {
+//        ObjectOutputStream writein = new ObjectOutputStream(new FileOutputStream(fName));
+//        writein.writeObject(root);
+//        System.out.println("sussefely storing tree");
+//
+//    }
+//
+//    public static HuffmanNode exportHuffmanTree(String fName) throws IOException, ClassNotFoundException, IOException {
+//        ObjectInputStream readout = new ObjectInputStream(new FileInputStream(fName));
+//        HuffmanNode r = (HuffmanNode) readout.readObject();
+//        System.out.println("exporting Done succefullly ");
+//        return r;
+//
+//    }
 
     public int[][] decodeHuffman(HuffmanNode root, String encodedString, int width, int height) {
         if (root == null || encodedString == null || encodedString.isEmpty()) {

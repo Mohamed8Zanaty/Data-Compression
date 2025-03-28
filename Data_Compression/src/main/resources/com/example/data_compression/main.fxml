@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.data_compression.HelloController">
+   <children>
+      <Text fill="#fffdfd" layoutX="144.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to a compression tool...">
+         <font>
+            <Font name="Viner Hand ITC" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#fdfdfd" layoutX="265.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="..اضغطني..">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Button fx:id="imagebtn" layoutX="118.0" layoutY="200.0" mnemonicParsing="false" onAction="#btninmagehandeler" styleClass="my-button" stylesheets="@Style.css" text="Image" />
+      <Button fx:id="textbtn" layoutX="413.0" layoutY="200.0" mnemonicParsing="false" onAction="#btninmagehandeler2" styleClass="my-button" stylesheets="@Style.css" text="Text" />
+      <ImageView fitHeight="48.0" fitWidth="56.0" layoutX="57.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/cam2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="48.0" fitWidth="56.0" layoutX="355.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/file1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="34.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/download.jpeg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

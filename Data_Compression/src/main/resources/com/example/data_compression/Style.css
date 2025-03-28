@@ -1,0 +1,99 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom, black 70% , orange );
+}
+.my-button {
+    -fx-background-color: linear-gradient(to bottom, #FFD700, #FFA500); /* Gold to Orange */
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0, 0, 4);
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.my-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #FFC107, #FF8C00); /* Brighter Gold to Deep Orange */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 6);
+}
+
+/* Pressed Effect */
+.my-button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #FFA500, #FF4500); /* Darker Orange */
+    -fx-translate-y: 2px; /* Slight button press effect */
+}
+/* Base TextField Styling */
+.my-textfield {
+    -fx-background-color: #ffffff;  /* White background */
+    -fx-border-color: #cccccc;  /* Light gray border */
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 6px; /* Rounded corners */
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 10px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial", sans-serif;
+    -fx-text-fill: #333333; /* Dark gray text */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
+}
+
+/* Hover Effect */
+.my-textfield:hover {
+    -fx-border-color: #999999; /* Darker border on hover */
+}
+
+/* Focus Effect (When Clicked) */
+.my-textfield:focused {
+    -fx-border-color: #ff9800; /* Orange border on focus */
+    -fx-effect: dropshadow(gaussian, rgba(255, 152, 0, 0.5), 8, 0, 0, 4);
+}
+
+/* Placeholder Text (Requires Java Code) */
+.my-textfield .text {
+    -fx-prompt-text-fill: #aaaaaa; /* Light gray placeholder text */
+}
+/* Base ChoiceBox Styling */
+.my-choicebox {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 6px; /* Rounded corners */
+    -fx-background-radius: 6px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial", sans-serif;
+    -fx-text-fill: #333333; /* Dark gray text */
+    -fx-mark-color: #ff9800; /* Custom dropdown arrow color */
+}
+
+/* Hover Effect */
+.my-choicebox:hover {
+    -fx-border-color: #999999; /* Darker border on hover */
+}
+
+/* Focused Effect */
+.my-choicebox:focused {
+    -fx-border-color: #ff9800; /* Orange border on focus */
+    -fx-effect: dropshadow(gaussian, rgba(255, 152, 0, 0.5), 8, 0, 0, 4);
+}
+
+/* Drop-down menu styling */
+.my-choicebox .menu-item {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #333333;
+}
+
+/* Hover effect on dropdown items */
+.my-choicebox .menu-item:hover {
+    -fx-background-color: #ff9800; /* Orange hover effect */
+    -fx-text-fill: #ffffff;
+}
+
+/* Selected item styling */
+.my-choicebox .menu-item:focused {
+    -fx-background-color: #ff9800; /* Highlighted item */
+    -fx-text-fill: #ffffff;
+}
