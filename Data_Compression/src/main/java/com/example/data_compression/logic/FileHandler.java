@@ -1,11 +1,14 @@
 package com.example.data_compression.logic;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.*;
 import java.util.BitSet;
@@ -156,4 +159,30 @@ public class FileHandler {
         }
     }
     // end fatma
+
+
+    public static Path selectFile(String extensionFilter) {
+        // Create a file chooser
+        JFileChooser fileChooser = new JFileChooser();
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Files", extensionFilter);
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            return Path.of(selectedFile.getAbsolutePath());
+        }
+        return null;
+    }
+    public static String getExtension(Path path) {
+        String fileName = path.getFileName().toString();
+        int lastDotIndex = fileName.lastIndexOf('.');
+        if (lastDotIndex > 0 && lastDotIndex < fileName.length() - 1) {
+            return fileName.substring(lastDotIndex + 1);
+        }
+        return null;
+
+    }
 }
