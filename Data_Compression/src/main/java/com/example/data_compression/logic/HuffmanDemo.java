@@ -1,8 +1,14 @@
 package com.example.data_compression.logic;
 
+import kotlin.Pair;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -232,11 +238,30 @@ public class HuffmanDemo {
         bw.close();
         System.out.println("Decompression complete. Output written to " + outputFile);
     }
+
+
+
+    public static Pair<Path, Path> inputAndOutputPaths(String extensionFilter) {
+        Path selectedFile = FileHandler.selectFile(extensionFilter);
+        assert selectedFile != null;
+        String fileName = selectedFile.getFileName().toString();
+        int dotIndex = fileName.lastIndexOf('.');
+        String nameWithoutExtension = (dotIndex == -1) ? fileName : fileName.substring(0, dotIndex);
+        Path parentDir = Paths.get(String.valueOf(selectedFile)).getParent();
+        Path outputFilePath;
+        if(extensionFilter.equals("bin"))
+            outputFilePath = parentDir.resolve(nameWithoutExtension + ".bin");
+        else outputFilePath = parentDir.resolve(nameWithoutExtension + ".txt");
+        return new Pair<>(selectedFile, outputFilePath);
+
+    }
+
     public static void main(String[] args) {
         try {
-            compress("in.txt", "out.bin");
+
         }catch (Exception e) {
             System.out.println("Error");
         }
     }
+
 }
