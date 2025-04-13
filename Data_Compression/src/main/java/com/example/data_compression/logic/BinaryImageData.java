@@ -1,0 +1,64 @@
+package com.example.data_compression.logic;
+
+import java.io.*;
+import java.util.BitSet;
+
+public class BinaryImageData implements Serializable {
+    private Huffman.HuffmanNode huffmanTree;
+    private BitSet compressedData;
+    private int originalBitLength;
+    private int imageWidth;
+    private int imageHeight;
+
+    // Constructor for creating new compressed file
+    public BinaryImageData(Huffman.HuffmanNode huffmanTree, String bitstream, int width, int height) {
+        this.huffmanTree = huffmanTree;
+        this.imageWidth = width;
+        this.imageHeight = height;
+        this.originalBitLength = bitstream.length();
+        this.compressedData = convertToBitSet(bitstream);
+    }
+
+    // Convert binary string to BitSet
+    private BitSet convertToBitSet(String bitstream) {
+        BitSet bitSet = new BitSet(bitstream.length());
+        for (int i = 0; i < bitstream.length(); i++) {
+            if (bitstream.charAt(i) == '1') {
+                bitSet.set(i);
+            }
+        }
+        return bitSet;
+    }
+
+    // Convert BitSet back to binary string
+    public String getBitstream() {
+        StringBuilder sb = new StringBuilder(originalBitLength);
+        for (int i = 0; i < originalBitLength; i++) {
+            sb.append(compressedData.get(i) ? '1' : '0');
+        }
+        return sb.toString();
+    }
+
+
+
+
+
+    // Getters
+    public Huffman.HuffmanNode getHuffmanTree() {
+        return huffmanTree;
+    }
+
+    public int getOriginalBitLength() {
+        return originalBitLength;
+    }
+
+    public int getImageWidth() {
+        return imageWidth;
+    }
+
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+
+}

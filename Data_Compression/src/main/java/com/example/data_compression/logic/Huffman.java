@@ -1,4 +1,6 @@
 package com.example.data_compression.logic;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -24,22 +26,7 @@ public  class Huffman implements Serializable {
         return this.root;
     }
 
-    public String compress(String data) {
-        HashMap<Integer, Integer> frequencyMap = new HashMap<>();
-        for (int i = 0; i < data.length(); i++) {
-            int character = (int) data.charAt(i);
-            if (frequencyMap.containsKey(character)) {
-                frequencyMap.put(character, (frequencyMap.get(character) + 1));
-            } else {
-                frequencyMap.put(character, 1);
-            }
-        }
-        this.root = buildHuffmanTree(frequencyMap);
-        HashMap<Integer, String> Codes = new HashMap<>();
-        Codes = generateCodes(root);
-        String compresedText = encodeText(data, Codes);
-        return compresedText;
-    }
+
 
     public static HashMap<Integer, String> generateCodes(HuffmanNode root) {
         if (root == null)
@@ -67,34 +54,6 @@ public  class Huffman implements Serializable {
 
     // start marwa
     //give each pixel binary code (less freq more bits)-(more freq less bits)
-    //repeatedddddd***********************
-    public void generateHuffmanCodes(HuffmanNode curNode, String binCode, HashMap<Integer, String> pixelsCode) {
-        if (curNode.right == null || curNode.left == null) {
-            pixelsCode.put(curNode.frequency, binCode);
-            return;
-        }
-        generateHuffmanCodes(curNode.right, binCode += "1", pixelsCode);
-        if (curNode.left != null) {
-            generateHuffmanCodes(curNode.left, binCode += "0", pixelsCode);
-        }
-
-    }
-
-//    public static void storeHuffmanTree(HuffmanNode root, String fName) throws IOException {
-//        ObjectOutputStream writein = new ObjectOutputStream(new FileOutputStream(fName));
-//        writein.writeObject(root);
-//        System.out.println("sussefely storing tree");
-//
-//    }
-//
-//    public static HuffmanNode exportHuffmanTree(String fName) throws IOException, ClassNotFoundException, IOException {
-//        ObjectInputStream readout = new ObjectInputStream(new FileInputStream(fName));
-//        HuffmanNode r = (HuffmanNode) readout.readObject();
-//        System.out.println("exporting Done succefullly ");
-//        return r;
-//
-//    }
-
     public int[][] decodeHuffman(HuffmanNode root, String encodedString, int width, int height) {
         if (root == null || encodedString == null || encodedString.isEmpty()) {
             throw new IllegalArgumentException("Invalid input data.");
@@ -186,29 +145,157 @@ public  class Huffman implements Serializable {
         return encodedImage.toString();
     }
     // end shahd
-
-    // start ashraf
-    public static String encodeText(String text, HashMap<Integer, String> huffmanCode) {
-        StringBuilder encodedString = new StringBuilder();
-        for (char ch : text.toCharArray()) {
-            encodedString.append(huffmanCode.get(ch));
+    // Differential encoding for better compression
+    public static int[][] applyDifferentialEncoding(int[][] channel) {
+        int[][] diff = new int[channel.length][channel[0].length];
+        int prev = 0;
+        for (int y = 0; y < channel.length; y++) {
+            for (int x = 0; x < channel[y].length; x++) {
+                diff[y][x] = channel[y][x] - prev;
+                prev = channel[y][x];
+            }
         }
-        return encodedString.toString();
+        return diff;
+    }
+    private static int[][] inverseDifferential(int[][] diffChannel) {
+        int[][] channel = new int[diffChannel.length][diffChannel[0].length];
+        int prev = 0;
+        for (int y = 0; y < diffChannel.length; y++) {
+            for (int x = 0; x < diffChannel[y].length; x++) {
+                channel[y][x] = diffChannel[y][x] + prev;
+                prev = channel[y][x];
+                // Clamp to 0-255 range
+                channel[y][x] = Math.max(0, Math.min(255, channel[y][x]));
+            }
+        }
+        return channel;
     }
 
-    public static void decode(HuffmanNode root, int[] index, String s) {
-        if (root == null) return;
-        if (root.left == null && root.right == null) {
-            System.out.print(root.value);
-            return;
+    public static void compressBMP(String originalPath, String compressedPath)throws IOException{
+       Huffman huffman=new Huffman();
+        try {
+            // 1. Read BMP file
+            String inputPath = originalPath;
+            BufferedImage bmpImage = null;
+            try {
+                File inputFile = new File(originalPath);
+
+                if (!inputFile.exists()) {
+                    System.err.println("Error: File not found - " +originalPath);
+                    return;
+                }
+
+                bmpImage = ImageIO.read(inputFile);
+                if (bmpImage == null) {
+                    System.err.println("Error: Unsupported BMP format or corrupt file");
+                    return;
+                }
+
+            } catch (IOException e) {
+                System.err.println("Error processing BMP:");
+                e.printStackTrace();
+            }
+
+            // 2. Convert to 24-bit RGB if needed
+            assert bmpImage != null;
+            BufferedImage rgbImage = FileHandler.convertTo24BitRGB(bmpImage);
+            int width = rgbImage.getWidth();
+            int height = rgbImage.getHeight();
+            // 3. Proceed with your Huffman compression
+            System.out.println("BMP loaded successfully. Dimensions: " +
+                    rgbImage.getWidth() + "x" + rgbImage.getHeight());
+
+            // 3. Convert to pixel array and separate channels
+            int[][][] channels =FileHandler.extractColorChannels(rgbImage);
+            // 4. Compress each channel separately
+            BinaryImageData[] compressedChannels = new BinaryImageData[3];
+            for (int c = 0; c < 3; c++) {
+                // Apply differential encoding to increase compression
+                int[][] diffChannel = applyDifferentialEncoding(channels[c]);
+                HashMap<Integer, Integer> freqMap = huffman.getPixelFrequencies(diffChannel);
+                Huffman.HuffmanNode tree = huffman.buildHuffmanTree(freqMap);
+                HashMap<Integer, String> codes = Huffman.generateCodes(tree);
+                String bitstream = Huffman.encodeImage(diffChannel, codes);
+
+                compressedChannels[c] = new BinaryImageData(tree, bitstream, width, height);
+            }
+            System.out.println("completed comprsed 1");
+            // 5. Save all channels to one file
+
+            FileHandler.saveCompressedChannels(compressedChannels, compressedPath);
+            System.out.println("hh");
+            // 6. Calculate compression ratio
+            File originalFile = new File(inputPath);
+            File compressedFile = new File(compressedPath);
+            System.out.printf("Original BMP: %d bytes\n", originalFile.length());
+            System.out.printf("Compressed: %d bytes\n", compressedFile.length());
+            System.out.printf("Ratio: %.2f:1\n",
+                    (double) originalFile.length() / compressedFile.length());
+
+        } catch (IOException e) {
+            System.err.println("Error processing BMP:");
+            e.printStackTrace();
         }
-        if (index[0] < s.length() - 1) {
-            index[0]++;
-            if (s.charAt(index[0]) == '0')
-                decode(root.left, index, s);
-            else
-                decode(root.right, index, s);
+
+
+    }
+
+    public static void decompressBMP(String compressedPath, String outputPath) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(compressedPath))) {
+
+            BinaryImageData redChannel = (BinaryImageData) ois.readObject();
+            BinaryImageData greenChannel = (BinaryImageData) ois.readObject();
+            BinaryImageData blueChannel = (BinaryImageData) ois.readObject();
+
+
+            Huffman huffman = new Huffman();
+
+            // 3. Decode each channel
+            int width = redChannel.getImageWidth();
+            int height = redChannel.getImageHeight();
+
+            int[][] rPixels = huffman.decodeHuffman(
+                    redChannel.getHuffmanTree(),
+                    redChannel.getBitstream(),
+                    width, height);
+
+            int[][] gPixels = huffman.decodeHuffman(
+                    greenChannel.getHuffmanTree(),
+                    greenChannel.getBitstream(),
+                    width, height);
+
+            int[][] bPixels = huffman.decodeHuffman(
+                    blueChannel.getHuffmanTree(),
+                    blueChannel.getBitstream(),
+                    width, height);
+
+            // 4. Apply inverse differential encoding
+            rPixels = inverseDifferential(rPixels);
+            gPixels = inverseDifferential(gPixels);
+            bPixels = inverseDifferential(bPixels);
+
+            // 5. Reconstruct RGB image
+            BufferedImage reconstructed = new BufferedImage(
+                    width, height, BufferedImage.TYPE_INT_RGB);
+
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int rgb = (rPixels[y][x] << 16) |
+                            (gPixels[y][x] << 8) |
+                            bPixels[y][x];
+                    reconstructed.setRGB(x, y, rgb);
+                }
+            }
+
+            // 6. Save as BMP
+            ImageIO.write(reconstructed, "bmp", new File(outputPath));
+            System.out.println("Decompression successful. Saved to: " + outputPath);
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error during decompression:");
+            e.printStackTrace();
         }
     }
-    // end ashraf
+
+
 }

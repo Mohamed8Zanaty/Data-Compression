@@ -30,8 +30,8 @@ public class FileHandler {
 
     }
 
-    public static BinaryFileData readBinaryFile(String path) {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("compressed_file.bin"))) {
+    static public BinaryFileData readBinaryFile(String path) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {
             // Read the Huffman tree root
             Huffman.HuffmanNode root = (Huffman.HuffmanNode) in.readObject();
 
@@ -64,26 +64,8 @@ public class FileHandler {
     }
     // end zanaty
 
-  // Write encoded Image and Huffman codes to a file
-//    public static void writeCompressedImage(String encodedImage, Map<Integer, String> huffmanCodes, String filePath) {
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-//            // Write Huffman codes (each pixel and its corresponding code)
-//            writer.write("Huffman Codes:\n");
-//            for (Map.Entry<Integer, String> entry : huffmanCodes.entrySet()) {
-//                writer.write(entry.getKey() + ":" + entry.getValue() + "\n");
-//            }
-//
-//            writer.write("Encoded Image:\n");
-//            writer.write(encodedImage);
-//
-//            System.out.println("Data successfully written to " + filePath);
-//        } catch (IOException e) {
-//            System.out.println("Error writing to file: " + e.getMessage());
-//        }
-//    }
 
-
-    // start maro
+//    // start maro
 //    public static int[][] readImage(String path) throws IOException {
 //        BufferedImage image = ImageIO.read(new File(path));
 //        int width = image.getWidth();
@@ -108,7 +90,7 @@ public class FileHandler {
 //        }
 //        return pixels;
 //    }
-
+//
 //    public static void writeImage(int[][] pixels, String path) throws IOException {
 //        int height = pixels.length;
 //        int width = pixels[0].length;
@@ -123,39 +105,45 @@ public class FileHandler {
 //        }
 //        ImageIO.write(image, "png", new File(path)); // Save as PNG
 //    }
-public static int[][] readImage(String path) throws IOException {
-    BufferedImage image = ImageIO.read(new File(path));
-    int width = image.getWidth();
-    int height = image.getHeight();
-    int[][] pixels = new int[height][width];
+//    // end maro
 
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            int rgb = image.getRGB(x, y);
-            pixels[y][x] = rgb & 0xFF;
-        }
-    }
-    return pixels;
-}
-public static void writeImage(int[][] pixels, String path) throws IOException {
-    int height = pixels.length;
-    int width = pixels[0].length;
-    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
 
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            int gray = pixels[y][x];
-            int rgb = (gray << 16) | (gray << 8) | gray;
-            image.setRGB(x, y, rgb);
+
+
+    public static int[][] readImage(String path) throws IOException {
+        BufferedImage image = ImageIO.read(new File(path));
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int[][] pixels = new int[height][width];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                pixels[y][x] = image.getRGB(x, y);
+           }
         }
+        return pixels;
     }
-    ImageIO.write(image, "png", new File(path));
-}
-    // end maro
+
+    public static void writeImage(int[][] pixels, String path) throws IOException {
+        int height = pixels.length;
+        int width = pixels[0].length;
+        //BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+
+                image.setRGB(x, y, pixels[y][x]);
+            }
+        }
+        ImageIO.write(image, "jpg", new File(path)); // Save as PNG X jpg
+    }
+
+
+
 
     // start fatma
-    public static void writeCompressedData(String data, Huffman.HuffmanNode root,String nam)  {
-                try( ObjectOutputStream compressedFile = new ObjectOutputStream(new FileOutputStream(nam))){
+    public static void writeCompressedData(String data, Huffman.HuffmanNode root, String name)  {
+        try( ObjectOutputStream compressedFile = new ObjectOutputStream(new FileOutputStream(name))){
                     Huffman huffman = new Huffman();
                     if(root==null){
                         System.out.println("Root is null.");
@@ -184,4 +172,40 @@ public static void writeImage(int[][] pixels, String path) throws IOException {
         }
     }
     // end fatma
+    // Converts any BMP to 24-bit RGB format
+    public static BufferedImage convertTo24BitRGB(BufferedImage image) {
+        if (image.getType() == BufferedImage.TYPE_INT_RGB) {
+            return image;
+        }
+        BufferedImage newImage = new BufferedImage(
+                image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+        newImage.getGraphics().drawImage(image, 0, 0, null);
+        return newImage;
+    }
+    // Extracts R, G, B channels as separate 2D arrays
+    public static int[][][] extractColorChannels(BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int[][][] channels = new int[3][height][width];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int rgb = image.getRGB(x, y);
+                channels[0][y][x] = (rgb >> 16) & 0xFF; // Red
+                channels[1][y][x] = (rgb >> 8) & 0xFF;  // Green
+                channels[2][y][x] = rgb & 0xFF;         // Blue
+            }
+        }
+        return channels;
+    }
+    // Saves all three channels to one file
+    public static void saveCompressedChannels(BinaryImageData[] channels, String path)
+            throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
+            oos.writeObject(channels[0]); // Red
+            oos.writeObject(channels[1]); // Green
+            oos.writeObject(channels[2]); // Blue
+        }
+
+    }
 }

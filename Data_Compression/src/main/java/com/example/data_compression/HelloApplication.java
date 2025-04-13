@@ -1,19 +1,20 @@
 package com.example.data_compression;
-import com.example.data_compression.logic.BinaryFileData;
-import com.example.data_compression.logic.FileHandler;
-import com.example.data_compression.logic.Huffman;
+import com.example.data_compression.logic.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.HashMap;
-import java.util.Objects;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        try{
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 //            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("Style.css")).toExternalForm());
@@ -23,49 +24,30 @@ public class HelloApplication extends Application {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
 
     }
 
+
+
     public static void main(String[] args) throws IOException {
-        launch();
-//        String ImagePath="D:\\Student-Activities\\OSC-s&t\\download.png";
-//        String path2="D:\\Student-Activities\\OSC-s&t\\compressed_image\\imahe.bin";
-//        String backPath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\bbb.png";
-//        int[][] originalPixels = FileHandler.readImage(ImagePath);
-//        System.out.println("Original image read successfully.");
-////        for(int i=0;i<4;i++){
-////            for(int k=0;k<4;k++){
-////                System.out.println(originalPixels[i][k]);
-////
-////            }
-////        }
-//        System.out.println("Compressing the image...");
-//        Huffman huffman = new Huffman();
-//        HashMap<Integer, Integer> frequencyMap = huffman.getPixelFrequencies(originalPixels);
-////        for(Integer it :frequencyMap.values() ){
-////            System.out.println(it);
-////        }
-//        Huffman.HuffmanNode root = huffman.buildHuffmanTree(frequencyMap);
-//        HashMap<Integer, String> huffmanCodes = Huffman.generateCodes(root);
-//        String encodedImage = Huffman.encodeImage(originalPixels, huffmanCodes);
-////        System.out.println(encodedImage);
-//        // Write compressed data to a file
-//        FileHandler.writeCompressedData(encodedImage, root,path2);
-//        System.out.println("Image compressed and saved to " + path2);
-//
-//        System.out.println("Decompressing the image...");
-//        BinaryFileData compressedData = FileHandler.readBinaryFile(path2);
-//        String encodedString = compressedData.getData();
-//        Huffman.HuffmanNode decompressRoot = compressedData.getRootNode();
-//        // Decode the image
-//        int[][] decompressedPixels = huffman.decodeHuffman(decompressRoot, encodedString, originalPixels[0].length, originalPixels.length);
-//
-//         FileHandler.writeImage(decompressedPixels,backPath);
-//        System.out.println("Image decompressed and saved to " + backPath);
-//
-
-
+        Huffman HH=new Huffman();
+        String originalPath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\sample_1280×853.bmp",
+                compressedPath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\compressed_bmp.bin",
+        outpath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\de.bmp";
+       HH.compressBMP(originalPath,compressedPath);
+       HH.decompressBMP(compressedPath,outpath);
     }
+
+
+
+
+
+
+
+
+
+
 }
+
