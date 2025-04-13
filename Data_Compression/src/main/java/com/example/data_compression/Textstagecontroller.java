@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class Textstagecontroller implements Initializable {
     @FXML
-    private TextField inputFilePathLabel;
+    private  TextField inputFilePathLabel;
     @FXML
     private Button startBtn, saveBtn;
     @FXML
@@ -40,7 +40,7 @@ public class Textstagecontroller implements Initializable {
     @FXML
     private Label result;
 
-    File savingDir;
+    File  savingDir;
     PauseTransition delay = new PauseTransition(Duration.seconds(1));
 
     @FXML
@@ -67,7 +67,7 @@ public class Textstagecontroller implements Initializable {
         String ext;
         if(operationBox.getValue().equals("compress")) ext = "bin";
         else ext = "txt";
-        Pair<Path,Path> Files = inputAndOutputPaths(ext);
+        Pair<Path,Path> Files = inputAndOutputPaths(ext,".txt");
         String realExt = FileHandler.getExtension(Files.getFirst());
         assert realExt != null;
         if(realExt.equals(ext)) {
@@ -118,12 +118,10 @@ public class Textstagecontroller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         operationBox.setValue("operation");
         operationBox.getItems().addAll(operations);
-        if(!inputFilePathLabel.getText().isEmpty() && !operationBox.getItems().isEmpty()) {
 
-        }
     }
 
-    private  Pair<Path, Path> inputAndOutputPaths(String extensionFilter) {
+    private   Pair<Path, Path> inputAndOutputPaths(String extensionFilter,String ex ) {
         Path selectedFile = Path.of(inputFilePathLabel.getText());
         String fileName = selectedFile.getFileName().toString();
         int dotIndex = fileName.lastIndexOf('.');
@@ -132,7 +130,7 @@ public class Textstagecontroller implements Initializable {
         Path outputFilePath;
         if(extensionFilter.equals("bin"))
             outputFilePath = parentDir.resolve(nameWithoutExtension + ".bin");
-        else outputFilePath = parentDir.resolve(nameWithoutExtension + ".txt");
+        else outputFilePath = parentDir.resolve(nameWithoutExtension + ex);
         return new Pair<>(selectedFile, outputFilePath);
     }
 

@@ -32,12 +32,13 @@ public class HelloApplication extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        Huffman HH=new Huffman();
-        String originalPath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\sample_1280×853.bmp",
-                compressedPath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\compressed_bmp.bin",
-        outpath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\de.bmp";
-       HH.compressBMP(originalPath,compressedPath);
-       HH.decompressBMP(compressedPath,outpath);
+//        Huffman HH=new Huffman();
+//        String originalPath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\sample_1280×853.bmp",
+//                compressedPath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\compressed_bmp.bin",
+//        outpath="D:\\Student-Activities\\OSC-s&t\\compressed_image\\de.bmp";
+//       HH.compressBMP(originalPath,compressedPath);
+//       HH.decompressBMP(compressedPath,outpath);
+        launch();
     }
 
 
