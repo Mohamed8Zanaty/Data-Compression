@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="upAnchor" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@../Style.css"
             xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.data_compression.ui.SecondScene">
+            fx:controller="com.example.data_compression.ui.ImageStageController">
    <Text fill="#f4f4f4" layoutX="213.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload image">
       <font>
          <Font name="Viner Hand ITC" size="20.0"/>

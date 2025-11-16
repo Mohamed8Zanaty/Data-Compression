@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SecondScene implements Initializable {
+public class ImageStageController implements Initializable {
     @FXML
     private TextField pathTextField;
     @FXML

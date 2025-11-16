@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/25"
+            prefWidth="600.0" stylesheets="@../Style.css" xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.data_compression.ui.MainStageController">
    <Text fill="#fffdfd" layoutX="144.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0"
@@ -23,16 +23,16 @@
       </font>
    </Text>
    <Button fx:id="imageButton" layoutX="118.0" layoutY="200.0" mnemonicParsing="false" onAction="#imageButtonHandler"
-           styleClass="my-button" stylesheets="@Style.css" text="Image"/>
+           styleClass="my-button" stylesheets="@../Style.css" text="Image"/>
    <Button layoutX="413.0" layoutY="200.0" mnemonicParsing="false" onAction="#textButtonHandler"
-           styleClass="my-button" stylesheets="@Style.css" text="Text"/>
+           styleClass="my-button" stylesheets="@../Style.css" text="Text"/>
    <ImageView fitHeight="48.0" fitWidth="56.0" layoutX="57.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../../../../assets/cam2.png"/>
+      <Image url="@../../../../../assets/cam2.png"/>
    </ImageView>
    <ImageView fitHeight="48.0" fitWidth="56.0" layoutX="355.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../../../../assets/file1.png"/>
+      <Image url="@../../../../../assets/file1.png"/>
    </ImageView>
    <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="34.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../../../../assets/download.jpeg"/>
+      <Image url="@../../../../../assets/download.jpeg"/>
    </ImageView>
 </AnchorPane>
