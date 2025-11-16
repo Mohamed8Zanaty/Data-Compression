@@ -16,4 +16,6 @@ module com.example.data_compression {
 //    opens com.example.data_compression.gui_controll to javafx.fxml;
     exports com.example.data_compression;
     opens com.example.data_compression to javafx.fxml;
+    exports com.example.data_compression.ui;
+    opens com.example.data_compression.ui to javafx.fxml;
 }

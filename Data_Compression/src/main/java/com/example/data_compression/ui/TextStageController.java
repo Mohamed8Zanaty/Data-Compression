@@ -1,4 +1,4 @@
-package com.example.data_compression;
+package com.example.data_compression.ui;
 
 import com.example.data_compression.logic.FileHandler;
 import com.example.data_compression.logic.HuffmanDemo;
@@ -20,72 +20,66 @@ import javafx.util.Duration;
 import kotlin.Pair;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class Textstagecontroller implements Initializable {
+public class TextStageController implements Initializable {
     @FXML
     private TextField inputFilePathLabel;
     @FXML
-    private Button startBtn, saveBtn;
+    private Button startButton;
+    @FXML
+    private Button saveAsButton;
     @FXML
     AnchorPane upAnchor;
     @FXML
-    private ChoiceBox operationBox;
-    @FXML
-    private String [] operations={"compress","decompress"};
+    private ChoiceBox<String> operationBox;
     @FXML
     private Label result;
 
-    File savingDir;
-    PauseTransition delay = new PauseTransition(Duration.seconds(1));
+    private final String [] operations={"Compress","Decompress"};
+    private File savingDir;
+    private final PauseTransition delay = new PauseTransition(Duration.seconds(1));
 
     @FXML
-    private void btnhandeler()throws IOException {
-        final FileChooser fch=new FileChooser();
-//        fch.getExtensionFilters().addAll(
-//                new FileChooser.ExtensionFilter("PNG Files", ".png"),
-//                new FileChooser.ExtensionFilter("PDF Files", ".txt")
-//        );
-        Stage st=(Stage) upAnchor.getScene().getWindow();
+    private void browseButtonHandler() throws IOException {
+        final FileChooser fch = new FileChooser();
+        Stage st = (Stage) upAnchor.getScene().getWindow();
         File file=fch.showOpenDialog(st);
-        if(file!=null) {
-            inputFilePathLabel.setText(file.getAbsolutePath());
-            operationBox.setDisable(false);
-            saveBtn.setDisable(false);
-        }
-
+        if (file == null) throw new FileNotFoundException("File Not Found");
+        inputFilePathLabel.setText(file.getAbsolutePath());
+        operationBox.setDisable(false);
+        saveAsButton.setDisable(false);
     }
     @FXML
-    private void Startcompressionbtn() throws IOException {
-        delay.setOnFinished(event -> {
-            result.setText("");
-        });
-        String ext;
-        if(operationBox.getValue().equals("compress")) ext = "bin";
-        else ext = "txt";
-        Pair<Path,Path> Files = inputAndOutputPaths(ext);
+    private void startCompressionButton() throws IOException {
+        delay.setOnFinished(event -> result.setText(""));
+        String extension;
+        if(operationBox.getValue().equals("compress")) extension = "bin";
+        else extension = "txt";
+        Pair<Path,Path> Files = inputAndOutputPaths(extension);
         String realExt = FileHandler.getExtension(Files.getFirst());
         assert realExt != null;
-        if(realExt.equals(ext)) {
+        if(realExt.equals(extension)) {
             result.setText("File Extension Does Not Match The Operation Selected");
             result.setStyle("-fx-text-fill: red;");
         }
         else {
-            if(ext.equals("bin"))
+            if(extension.equals("bin"))
                 HuffmanDemo.compress(String.valueOf(Files.getFirst()), String.valueOf(Files.getSecond()));
             else
                 HuffmanDemo.decompress(String.valueOf(Files.getFirst()), String.valueOf(Files.getSecond()));
 
             inputFilePathLabel.clear();
-            operationBox.setValue("operation");
+            operationBox.setValue("Operation");
             savingDir = null;
-            startBtn.setDisable(true);
+            startButton.setDisable(true);
             operationBox.setDisable(true);
-            saveBtn.setDisable(true);
+            saveAsButton.setDisable(true);
             result.setText("Operation Succeeded");
             result.setStyle("-fx-text-fill: green;");
             delay.play();
@@ -94,33 +88,26 @@ public class Textstagecontroller implements Initializable {
     }
     @FXML
     private void backword() throws IOException {
-
         Parent root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main.fxml")));
-        Stage window =(Stage)startBtn.getScene().getWindow();
-
+        Stage window =(Stage)startButton.getScene().getWindow();
         window.setScene(new Scene(root));
         window.show();
-
-//       System.out.println("شغاللللي");
     }
     @FXML
-    private  void savbtnhandeler(){
-        DirectoryChooser dicch=new DirectoryChooser();
+    private  void saveButtonHandler(){
+        DirectoryChooser directoryChooser=new DirectoryChooser();
         Stage st=(Stage) upAnchor.getScene().getWindow();
-        savingDir = dicch.showDialog(st);
+        savingDir = directoryChooser.showDialog(st);
         if(!inputFilePathLabel.getText().isEmpty() && !operationBox.getValue().equals("operation") && savingDir != null) {
 
-            startBtn.setDisable(false);
+            startButton.setDisable(false);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        operationBox.setValue("operation");
+        operationBox.setValue("Operation");
         operationBox.getItems().addAll(operations);
-        if(!inputFilePathLabel.getText().isEmpty() && !operationBox.getItems().isEmpty()) {
-
-        }
     }
 
     private  Pair<Path, Path> inputAndOutputPaths(String extensionFilter) {
