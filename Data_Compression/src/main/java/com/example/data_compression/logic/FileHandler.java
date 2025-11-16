@@ -67,23 +67,49 @@ public class FileHandler {
     }
     // end zanaty
 
-  // Write encoded Image and Huffman codes to a file
-//    public static void writeCompressedImage(String encodedImage, Map<Integer, String> huffmanCodes, String filePath) {
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-//            // Write Huffman codes (each pixel and its corresponding code)
-//            writer.write("Huffman Codes:\n");
-//            for (Map.Entry<Integer, String> entry : huffmanCodes.entrySet()) {
-//                writer.write(entry.getKey() + ":" + entry.getValue() + "\n");
+
+//    // start maro
+//    public static int[][] readImage(String path) throws IOException {
+//        BufferedImage image = ImageIO.read(new File(path));
+//        int width = image.getWidth();
+//        int height = image.getHeight();
+//        int[][] pixels = new int[height][width];
+//
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                int rgb = image.getRGB(x, y);
+//
+//                if (image.getType() == BufferedImage.TYPE_BYTE_GRAY) {
+//                    // If image is already grayscale, extract the single channel
+//                    pixels[y][x] = rgb & 0xFF;
+//                } else {
+//                    // Convert color image to grayscale using the luminance formula
+//                    int r = (rgb >> 16) & 0xFF;
+//                    int g = (rgb >> 8) & 0xFF;
+//                    int b = rgb & 0xFF;
+//                    pixels[y][x] = (int) (0.2989 * r + 0.5870 * g + 0.1140 * b);
+//                }
 //            }
-//
-//            writer.write("Encoded Image:\n");
-//            writer.write(encodedImage);
-//
-//            System.out.println("Data successfully written to " + filePath);
-//        } catch (IOException e) {
-//            System.out.println("Error writing to file: " + e.getMessage());
 //        }
+//        return pixels;
 //    }
+//
+//    public static void writeImage(int[][] pixels, String path) throws IOException {
+//        int height = pixels.length;
+//        int width = pixels[0].length;
+//        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+//
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                int gray = pixels[y][x];  // Grayscale value (0-255)
+//                int rgb = (gray << 16) | (gray << 8) | gray; // Convert grayscale to RGB format
+//                image.setRGB(x, y, rgb);
+//            }
+//        }
+//        ImageIO.write(image, "png", new File(path)); // Save as PNG
+//    }
+//    // end maro
+
 
 
     // start maro
@@ -159,6 +185,42 @@ public class FileHandler {
         }
     }
     // end fatma
+    // Converts any BMP to 24-bit RGB format
+    public static BufferedImage convertTo24BitRGB(BufferedImage image) {
+        if (image.getType() == BufferedImage.TYPE_INT_RGB) {
+            return image;
+        }
+        BufferedImage newImage = new BufferedImage(
+                image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+        newImage.getGraphics().drawImage(image, 0, 0, null);
+        return newImage;
+    }
+    // Extracts R, G, B channels as separate 2D arrays
+    public static int[][][] extractColorChannels(BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int[][][] channels = new int[3][height][width];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int rgb = image.getRGB(x, y);
+                channels[0][y][x] = (rgb >> 16) & 0xFF; // Red
+                channels[1][y][x] = (rgb >> 8) & 0xFF;  // Green
+                channels[2][y][x] = rgb & 0xFF;         // Blue
+            }
+        }
+        return channels;
+    }
+    // Saves all three channels to one file
+    public static void saveCompressedChannels(BinaryImageData[] channels, String path)
+            throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
+            oos.writeObject(channels[0]); // Red
+            oos.writeObject(channels[1]); // Green
+            oos.writeObject(channels[2]); // Blue
+        }
+
+    }
 
 
     public static Path selectFile(String extensionFilter) {
