@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="upAnchor" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@../Style.css"
+<AnchorPane fx:id="upAnchor" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@Style.css"
             xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.data_compression.ui.TextStageController">
    <Text fill="#f4f4f4" layoutX="213.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Text">
@@ -22,17 +22,17 @@
       <Image url="@../../../../../assets/download.jpeg"/>
    </ImageView>
    <Button layoutX="404.0" layoutY="117.0" mnemonicParsing="false" onAction="#browseButtonHandler"
-           styleClass="my-button" stylesheets="@../Style.css" text="Browse"/>
+           styleClass="my-button" stylesheets="@Style.css" text="Browse"/>
    <TextField fx:id="inputFilePathLabel" layoutX="14.0" layoutY="123.0" prefHeight="35.0" prefWidth="362.0"
-              styleClass="my-textfield" stylesheets="@../Style.css"/>
+              styleClass="my-textfield" stylesheets="@Style.css"/>
    <ChoiceBox fx:id="operationBox" disable="true" layoutX="14.0" layoutY="176.0" prefWidth="150.0"
-              styleClass="my-choice-box" stylesheets="@../Style.css"/>
+              styleClass="my-choice-box" stylesheets="@Style.css"/>
    <Button fx:id="startButton" disable="true" layoutX="237.0" layoutY="289.0" mnemonicParsing="false"
-           onAction="#startCompressionButton" styleClass="my-button" stylesheets="@../Style.css" text="Start"/>
+           onAction="#startCompressionButton" styleClass="my-button" stylesheets="@Style.css" text="Start"/>
    <Button layoutY="352.0" mnemonicParsing="false" onAction="#backword" styleClass="my-button"
-           stylesheets="@../Style.css" text="Back" textFill="#191818"/>
+           stylesheets="@Style.css" text="Back" textFill="#191818"/>
    <Button fx:id="saveAsButton" disable="true" layoutX="195.0" layoutY="171.0" mnemonicParsing="false"
-           onAction="#saveButtonHandler" styleClass="my-button" stylesheets="@../Style.css" text="Sava as"/>
+           onAction="#saveButtonHandler" styleClass="my-button" stylesheets="@Style.css" text="Sava as"/>
    <Label fx:id="result" layoutX="233.0" layoutY="352.0">
       <font>
          <Font size="15.0"/>

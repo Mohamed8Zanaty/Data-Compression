@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public class HuffmanDemo {
-    static class Node implements Comparable<Node> {
+    public static class Node implements Comparable<Node> {
         int value;
         int freq;
         Node left, right;
@@ -142,61 +142,6 @@ public class HuffmanDemo {
         System.out.println("Original file size: " + inFile.length() + " bytes");
         System.out.println("Compressed file size: " + outFile.length() + " bytes");
     }
-    public static void compressImage(String inputFile, String outputFile) throws IOException{
-    BufferedImage image = ImageIO.read(new File(inputFile));
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        // Build Huffman Encoding
-        HashMap<Integer, Integer> freqMap = buildFrequencyMap(String.valueOf(image));
-        Node root = buildHuffmanTree(freqMap);
-        HashMap<Integer, String> codeMap = new HashMap<>();
-        generateCodes(root, "", codeMap);
-
-        // Encode the image pixels
-        StringBuilder encodedData = new StringBuilder();
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int pixel = image.getRGB(x, y) & 0xFF;
-                encodedData.append(codeMap.get(pixel));
-            }
-        }
-
-        // Write Compressed File
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(outputFile))) {
-            // Store Image Dimensions
-            dos.writeInt(width);
-            dos.writeInt(height);
-
-            // Write Huffman Header
-            writeHeader(dos, freqMap);
-
-            // Write Encoded Data Length
-            dos.writeInt(encodedData.length());
-
-            // Convert Binary String to Bytes and Write
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            int i = 0;
-            while (i < encodedData.length()) {
-                int byteVal = 0;
-                for (int bit = 0; bit < 8; bit++) {
-                    byteVal <<= 1;
-                    if (i < encodedData.length() && encodedData.charAt(i) == '1') {
-                        byteVal |= 1;
-                    }
-                    i++;
-                }
-                baos.write(byteVal);
-            }
-            byte[] compressedBytes = baos.toByteArray();
-            dos.writeInt(compressedBytes.length);
-            dos.write(compressedBytes);
-        }
-
-        System.out.println("Compression complete!");
-        System.out.println("Original Image: " + inputFile);
-        System.out.println("Compressed File: " + outputFile);
-    }
 
     public static void decompress(String inputFile, String outputFile) throws IOException {
         DataInputStream dis = new DataInputStream(new FileInputStream(inputFile));
@@ -238,23 +183,4 @@ public class HuffmanDemo {
         bw.close();
         System.out.println("Decompression complete. Output written to " + outputFile);
     }
-
-
-
-    public static Pair<Path, Path> inputAndOutputPaths(String extensionFilter) {
-        Path selectedFile = FileHandler.selectFile(extensionFilter);
-        assert selectedFile != null;
-        String fileName = selectedFile.getFileName().toString();
-        int dotIndex = fileName.lastIndexOf('.');
-        String nameWithoutExtension = (dotIndex == -1) ? fileName : fileName.substring(0, dotIndex);
-        Path parentDir = Paths.get(String.valueOf(selectedFile)).getParent();
-        Path outputFilePath;
-        if(extensionFilter.equals("bin"))
-            outputFilePath = parentDir.resolve(nameWithoutExtension + ".bin");
-        else outputFilePath = parentDir.resolve(nameWithoutExtension + ".txt");
-        return new Pair<>(selectedFile, outputFilePath);
-
-    }
-
-
 }

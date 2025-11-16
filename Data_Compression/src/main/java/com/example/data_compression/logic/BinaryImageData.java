@@ -4,11 +4,11 @@ import java.io.*;
 import java.util.BitSet;
 
 public class BinaryImageData implements Serializable {
-    private Huffman.HuffmanNode huffmanTree;
-    private BitSet compressedData;
-    private int originalBitLength;
-    private int imageWidth;
-    private int imageHeight;
+    private final Huffman.HuffmanNode huffmanTree;
+    private final BitSet compressedData;
+    private final int originalBitLength;
+    private final int imageWidth;
+    private final int imageHeight;
 
     // Constructor for creating new compressed file
     public BinaryImageData(Huffman.HuffmanNode huffmanTree, String bitstream, int width, int height) {
@@ -38,18 +38,9 @@ public class BinaryImageData implements Serializable {
         }
         return sb.toString();
     }
-
-
-
-
-
     // Getters
     public Huffman.HuffmanNode getHuffmanTree() {
         return huffmanTree;
-    }
-
-    public int getOriginalBitLength() {
-        return originalBitLength;
     }
 
     public int getImageWidth() {

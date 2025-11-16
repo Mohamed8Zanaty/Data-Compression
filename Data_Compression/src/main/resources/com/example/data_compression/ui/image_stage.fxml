@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,8 +10,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="upAnchor" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@../Style.css"
-            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane fx:id="upAnchor" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@Style.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.data_compression.ui.ImageStageController">
    <Text fill="#f4f4f4" layoutX="213.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload image">
       <font>
@@ -18,16 +19,20 @@
       </font>
    </Text>
    <Button layoutX="404.0" layoutY="200.0" mnemonicParsing="false" onAction="#browseButtonHandler"
-           styleClass="my-button" stylesheets="@../Style.css" text="Browse"/>
+           styleClass="my-button" stylesheets="@Style.css" text="Browse"/>
    <TextField fx:id="pathTextField" layoutX="14.0" layoutY="206.0" prefHeight="35.0" prefWidth="362.0"
-              styleClass="my-textfield" stylesheets="@../Style.css"/>
-   <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="474.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+              styleClass="my-textfield" stylesheets="@Style.css"/>
+   <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="474.0" layoutY="43.0" pickOnBounds="true"
+              preserveRatio="true">
       <Image url="@../../../../../assets/download.jpeg"/>
    </ImageView>
-   <ChoiceBox fx:id="operationBox" layoutX="14.0" layoutY="259.0" prefWidth="150.0" styleClass="my-choice-box"
-              stylesheets="@../Style.css"/>
-   <Button fx:id="startButton" layoutX="195.0" layoutY="259.0" mnemonicParsing="false"
-           onAction="#startCompressionButton" styleClass="my-button" stylesheets="@../Style.css" text="Start"/>
-   <Button layoutX="14.0" layoutY="338.0" mnemonicParsing="false" onAction="#backword"
-           styleClass="my-button" stylesheets="@../Style.css" text="Back" textFill="#191818"/>
+   <ChoiceBox fx:id="operationBox" disable="true" layoutX="14.0" layoutY="259.0" prefWidth="150.0"
+              styleClass="my-choice-box" stylesheets="@Style.css"/>
+   <Button fx:id="startButton" disable="true" layoutX="258.0" layoutY="330.0" mnemonicParsing="false"
+           onAction="#startCompressionButton" styleClass="my-button" stylesheets="@Style.css" text="Start"/>
+   <Button layoutX="14.0" layoutY="338.0" mnemonicParsing="false" onAction="#backword" styleClass="my-button"
+           stylesheets="@Style.css" text="Back" textFill="#191818"/>
+   <Button fx:id="saveButton" disable="true" layoutX="198.0" layoutY="254.0" mnemonicParsing="false"
+           onAction="#savbtnhandeler" styleClass="my-button" stylesheets="@Style.css" text="Save as"/>
+   <Label fx:id="result" layoutX="382.0" layoutY="354.0"/>
 </AnchorPane>

@@ -15,6 +15,7 @@ import java.util.BitSet;
 
 public class FileHandler {
 
+
     // start zanaty
     public String readTextFile(String path) {
         try (BufferedReader br = Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8)) {

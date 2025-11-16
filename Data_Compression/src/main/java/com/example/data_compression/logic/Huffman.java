@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public  class Huffman implements Serializable {
-    public class HuffmanNode implements Serializable {
+    public static class HuffmanNode implements Serializable {
         public int value;
         public int frequency;
         public HuffmanNode left, right;
@@ -17,17 +17,6 @@ public  class Huffman implements Serializable {
             this.frequency = frequency;
         }
     }
-
-    // start fatma
-
-    private HuffmanNode root;
-    public HuffmanNode getRoot() {
-
-        return this.root;
-    }
-
-
-
     public static HashMap<Integer, String> generateCodes(HuffmanNode root) {
         if (root == null)
             return null;
@@ -50,44 +39,33 @@ public  class Huffman implements Serializable {
         recursiveHelper(node.left, binaryCode, Codes);
         binaryCode.deleteCharAt(length - 1);
     }
-    // end fatma
 
-    // start marwa
     //give each pixel binary code (less freq more bits)-(more freq less bits)
     public int[][] decodeHuffman(HuffmanNode root, String encodedString, int width, int height) {
         if (root == null || encodedString == null || encodedString.isEmpty()) {
             throw new IllegalArgumentException("Invalid input data.");
         }
-
         int[][] image = new int[height][width];
         HuffmanNode current = root;
         int row = 0, col = 0;
 
         for (char bit : encodedString.toCharArray()) {
             current = (bit == '0') ? current.left : current.right;
-
-
+            assert current != null;
             if (current.left == null && current.right == null) {
                 image[row][col] = current.value;
-
-
                 col++;
                 if (col == width) {
                     col = 0;
                     row++;
                 }
-
                 current = root;
-
-
                 if (row == height) break;
             }
         }
         return image; // Return the reconstructed image
     }
-    // end marwa
 
-    // start maro
     public HashMap<Integer, Integer> getPixelFrequencies(int[][] image) {
         if (image == null || image.length == 0) {
             throw new IllegalArgumentException("Mat7otesh 7aga fadya");
@@ -132,9 +110,7 @@ public  class Huffman implements Serializable {
 
         return queue.poll(); // Root of the Huffman tree
     }
-    // end maro
 
-    // start shahd
     public static String encodeImage(int[][] image, HashMap<Integer, String> huffmanCodes) {
         StringBuilder encodedImage = new StringBuilder(); //StringBuilder is created to efficiently build the encoded string
         for (int[] row : image) {
@@ -144,8 +120,7 @@ public  class Huffman implements Serializable {
         }
         return encodedImage.toString();
     }
-    // end shahd
-    // Differential encoding for better compression
+
     public static int[][] applyDifferentialEncoding(int[][] channel) {
         int[][] diff = new int[channel.length][channel[0].length];
         int prev = 0;
@@ -171,11 +146,10 @@ public  class Huffman implements Serializable {
         return channel;
     }
 
-    public static void compressBMP(String originalPath, String compressedPath)throws IOException{
+    public static void compressBMP(String originalPath, String compressedPath){
        Huffman huffman=new Huffman();
         try {
             // 1. Read BMP file
-            String inputPath = originalPath;
             BufferedImage bmpImage = null;
             try {
                 File inputFile = new File(originalPath);
@@ -223,9 +197,8 @@ public  class Huffman implements Serializable {
             // 5. Save all channels to one file
 
             FileHandler.saveCompressedChannels(compressedChannels, compressedPath);
-            System.out.println("hh");
             // 6. Calculate compression ratio
-            File originalFile = new File(inputPath);
+            File originalFile = new File(originalPath);
             File compressedFile = new File(compressedPath);
             System.out.printf("Original BMP: %d bytes\n", originalFile.length());
             System.out.printf("Compressed: %d bytes\n", compressedFile.length());
@@ -236,7 +209,6 @@ public  class Huffman implements Serializable {
             System.err.println("Error processing BMP:");
             e.printStackTrace();
         }
-
 
     }
 
@@ -296,6 +268,5 @@ public  class Huffman implements Serializable {
             e.printStackTrace();
         }
     }
-
 
 }
