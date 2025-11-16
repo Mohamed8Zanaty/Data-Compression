@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-           System.out.println("There was an error loading the FXML");
+           e.printStackTrace();
         }
     }
 

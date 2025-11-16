@@ -24,7 +24,7 @@
               styleClass="my-textfield" stylesheets="@Style.css"/>
    <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="474.0" layoutY="43.0" pickOnBounds="true"
               preserveRatio="true">
-      <Image url="@../../../../../assets/download.jpeg"/>
+      <Image url="@../assets/download.jpeg"/>
    </ImageView>
    <ChoiceBox fx:id="operationBox" disable="true" layoutX="14.0" layoutY="259.0" prefWidth="150.0"
               styleClass="my-choice-box" stylesheets="@Style.css"/>

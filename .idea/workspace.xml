@@ -27,12 +27,12 @@
     &quot;assignee&quot;: &quot;Mohamed8Zanaty&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Open-Source-Community/S-T-25-Data-compression.git&quot;,
-    &quot;accountId&quot;: &quot;2fb190e6-1260-4ccb-989a-ee90f4bc25b5&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Mohamed8Zanaty/Data-Compression.git",
+    "accountId": "eebf3450-59c7-4ac7-8a73-b0abf19b42c6"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -45,10 +45,10 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "decode__function",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Mohamed/OneDrive/Desktop/osc-Project",
+    "last_opened_file_path": "D:/Mohamed/Projects/Data-Compression",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -60,8 +60,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
       </set>
     </attachedChunks>
   </component>
@@ -79,6 +79,7 @@
       <workItem from="1741652374707" duration="980000" />
       <workItem from="1742008780942" duration="446000" />
       <workItem from="1742264755169" duration="329000" />
+      <workItem from="1763332801012" duration="34000" />
     </task>
     <task id="LOCAL-00001" summary="solving conflicts">
       <option name="closed" value="true" />

@@ -27,12 +27,12 @@
    <Button layoutX="413.0" layoutY="200.0" mnemonicParsing="false" onAction="#textButtonHandler"
            styleClass="my-button" stylesheets="@Style.css" text="Text"/>
    <ImageView fitHeight="48.0" fitWidth="56.0" layoutX="57.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../../../../../assets/cam2.png"/>
+      <Image url="@../assets/cam2.png"/>
    </ImageView>
    <ImageView fitHeight="48.0" fitWidth="56.0" layoutX="355.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../../../../../assets/file1.png"/>
+      <Image url="@../assets/file1.png"/>
    </ImageView>
    <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="34.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../../../../../assets/download.jpeg"/>
+      <Image url="@../assets/download.jpeg"/>
    </ImageView>
 </AnchorPane>

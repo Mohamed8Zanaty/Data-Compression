@@ -70,30 +70,30 @@
 }
 
 /* Hover Effect */
-.my-choicebox:hover {
+.my-choice-box:hover {
     -fx-border-color: #999999; /* Darker border on hover */
 }
 
 /* Focused Effect */
-.my-choicebox:focused {
+.my-choice-box:focused {
     -fx-border-color: #ff9800; /* Orange border on focus */
     -fx-effect: dropshadow(gaussian, rgba(255, 152, 0, 0.5), 8, 0, 0, 4);
 }
 
 /* Drop-down menu styling */
-.my-choicebox .menu-item {
+.my-choice-box .menu-item {
     -fx-background-color: #ffffff; /* White background */
     -fx-text-fill: #333333;
 }
 
 /* Hover effect on dropdown items */
-.my-choicebox .menu-item:hover {
+.my-choice-box .menu-item:hover {
     -fx-background-color: #ff9800; /* Orange hover effect */
     -fx-text-fill: #ffffff;
 }
 
 /* Selected item styling */
-.my-choicebox .menu-item:focused {
+.my-choice-box .menu-item:focused {
     -fx-background-color: #ff9800; /* Highlighted item */
     -fx-text-fill: #ffffff;
 }
