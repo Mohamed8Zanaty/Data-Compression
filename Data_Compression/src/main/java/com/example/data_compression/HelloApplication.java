@@ -1,5 +1,6 @@
 package com.example.data_compression;
 
+import com.example.data_compression.ui.util.SceneManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,11 +11,9 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage)  {
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ui/main.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            SceneManager.setStage(stage);
+            SceneManager.setInitialScene("/com/example/data_compression/ui/main.fxml");
             stage.setTitle("Data_Compression!");
-            stage.setScene(scene);
-            stage.show();
         } catch (Exception e) {
            e.printStackTrace();
         }

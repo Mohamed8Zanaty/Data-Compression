@@ -1,4 +1,5 @@
 package com.example.data_compression.ui;
+import com.example.data_compression.ui.util.SceneManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,17 +14,11 @@ public class MainStageController {
     private Button imageButton;
    @FXML
     private void imageButtonHandler() throws IOException {
-          Parent root=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("image_stage.fxml")));
-          Stage window =(Stage)imageButton.getScene().getWindow();
-          window.setScene(new Scene(root));
-          window.show();
+       SceneManager.switchTo("/com/example/data_compression/ui/image_stage.fxml");
    }
     @FXML
     private void textButtonHandler() throws IOException {
-        Parent root=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("text_stage.fxml")));
-        Stage window =(Stage)imageButton.getScene().getWindow();
-        window.setScene(new Scene(root));
-        window.show();
+        SceneManager.switchTo("/com/example/data_compression/ui/text_stage.fxml");
     }
 
 }

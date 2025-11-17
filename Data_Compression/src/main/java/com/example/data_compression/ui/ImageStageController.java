@@ -1,12 +1,10 @@
 package com.example.data_compression.ui;
 import com.example.data_compression.logic.FileHandler;
 import com.example.data_compression.logic.Huffman;
+import com.example.data_compression.ui.util.SceneManager;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -18,11 +16,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ImageStageController implements Initializable {
@@ -110,13 +106,12 @@ public class ImageStageController implements Initializable {
     }
 
     @FXML
-    private void backword () throws IOException {
-
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main.fxml")));
-        Stage window = (Stage) startButton.getScene().getWindow();
-        window.setScene(new Scene(root));
-        window.show();
-
+    private void backword () {
+        try {
+            SceneManager.goBack();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

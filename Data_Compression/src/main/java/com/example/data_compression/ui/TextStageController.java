@@ -2,6 +2,7 @@ package com.example.data_compression.ui;
 
 import com.example.data_compression.logic.FileHandler;
 import com.example.data_compression.logic.HuffmanDemo;
+import com.example.data_compression.ui.util.SceneManager;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,10 +89,7 @@ public class TextStageController implements Initializable {
     }
     @FXML
     private void backword() throws IOException {
-        Parent root= FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main.fxml")));
-        Stage window =(Stage)startButton.getScene().getWindow();
-        window.setScene(new Scene(root));
-        window.show();
+        SceneManager.goBack();
     }
     @FXML
     private  void saveButtonHandler(){
