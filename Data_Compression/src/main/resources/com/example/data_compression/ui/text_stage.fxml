@@ -29,7 +29,7 @@
               styleClass="my-choice-box" stylesheets="@Style.css"/>
    <Button fx:id="startButton" disable="true" layoutX="237.0" layoutY="289.0" mnemonicParsing="false"
            onAction="#startCompressionButton" styleClass="my-button" stylesheets="@Style.css" text="Start"/>
-   <Button layoutY="352.0" mnemonicParsing="false" onAction="#backword" styleClass="my-button"
+   <Button layoutY="352.0" mnemonicParsing="false" onAction="#back" styleClass="my-button"
            stylesheets="@Style.css" text="Back" textFill="#191818"/>
    <Button fx:id="saveAsButton" disable="true" layoutX="195.0" layoutY="171.0" mnemonicParsing="false"
            onAction="#saveButtonHandler" styleClass="my-button" stylesheets="@Style.css" text="Sava as"/>

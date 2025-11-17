@@ -30,7 +30,7 @@
               styleClass="my-choice-box" stylesheets="@Style.css"/>
    <Button fx:id="startButton" disable="true" layoutX="258.0" layoutY="330.0" mnemonicParsing="false"
            onAction="#startCompressionButton" styleClass="my-button" stylesheets="@Style.css" text="Start"/>
-   <Button layoutX="14.0" layoutY="338.0" mnemonicParsing="false" onAction="#backword" styleClass="my-button"
+   <Button layoutX="14.0" layoutY="338.0" mnemonicParsing="false" onAction="#back" styleClass="my-button"
            stylesheets="@Style.css" text="Back" textFill="#191818"/>
    <Button fx:id="saveButton" disable="true" layoutX="198.0" layoutY="254.0" mnemonicParsing="false"
            onAction="#savbtnhandeler" styleClass="my-button" stylesheets="@Style.css" text="Save as"/>

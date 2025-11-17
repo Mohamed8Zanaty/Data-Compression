@@ -2,6 +2,7 @@ package com.example.data_compression.ui;
 
 import com.example.data_compression.logic.FileHandler;
 import com.example.data_compression.logic.HuffmanDemo;
+import com.example.data_compression.ui.ability.Backable;
 import com.example.data_compression.ui.util.SceneManager;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -28,7 +29,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class TextStageController implements Initializable {
+public class TextStageController implements Initializable, Backable {
     @FXML
     private TextField inputFilePathLabel;
     @FXML
@@ -87,10 +88,7 @@ public class TextStageController implements Initializable {
         }
 
     }
-    @FXML
-    private void backword() throws IOException {
-        SceneManager.goBack();
-    }
+
     @FXML
     private  void saveButtonHandler(){
         DirectoryChooser directoryChooser=new DirectoryChooser();
