@@ -1,3 +1,3 @@
 package com.example.data_compression.logic;
 
-public record BinaryFileData(String data, int size, Huffman.HuffmanNode rootNode) { }
+public record BinaryFileData(String data, int size, HuffmanText.Node rootNode) { }

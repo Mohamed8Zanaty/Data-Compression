@@ -1,6 +1,7 @@
 package com.example.data_compression.ui;
 import com.example.data_compression.logic.FileHandler;
 import com.example.data_compression.logic.Huffman;
+import com.example.data_compression.logic.HuffmanImage;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -40,7 +40,7 @@ public class ImageStageController implements Initializable {
     @FXML
     private ChoiceBox<String> operationBox;
     @FXML
-    private final String[] operations = {"compress", "decompress"};
+    private final String[] operations = {"Compress", "Decompress"};
     @FXML
     PauseTransition delay = new PauseTransition(Duration.seconds(1));
     @FXML
@@ -48,6 +48,7 @@ public class ImageStageController implements Initializable {
     @FXML
     Path p;
     File tempOutput = null;
+    Huffman huffman = new HuffmanImage();
     @FXML
     private void browseButtonHandler(){
         final FileChooser fch = new FileChooser();
@@ -67,7 +68,7 @@ public class ImageStageController implements Initializable {
             result.setText("");
         });
 
-        if (operationBox.getValue().equals("compress")) ext = "bin";
+        if (operationBox.getValue().equals("Compress")) ext = "bin";
         else ext = "bmp";
         String realExt = FileHandler.getExtension(p);
         assert realExt != null;
@@ -77,14 +78,14 @@ public class ImageStageController implements Initializable {
         } else {
             if (ext.equals("bmp")){
                 tempOutput = File.createTempFile("compressed_", ".bmp",savingDir);
-                Huffman.decompressBMP(String.valueOf(pathTextField.getText()), tempOutput.getAbsolutePath());
+                huffman.decompress(String.valueOf(pathTextField.getText()), tempOutput.getAbsolutePath());
             }
             else{
                 tempOutput = File.createTempFile("decompressed_", ".bin",savingDir);
-                Huffman.compressBMP(String.valueOf(pathTextField.getText()),tempOutput.getAbsolutePath());
+                huffman.compress(String.valueOf(pathTextField.getText()),tempOutput.getAbsolutePath());
             }
             pathTextField.clear();
-            operationBox.setValue("operation");
+            operationBox.setValue("Operation");
             savingDir = null;
             startButton.setDisable(true);
             operationBox.setDisable(true);
@@ -102,7 +103,7 @@ public class ImageStageController implements Initializable {
         DirectoryChooser dicch = new DirectoryChooser();
         Stage st = (Stage) upAnchor.getScene().getWindow();
         savingDir = dicch.showDialog(st);
-        if (!pathTextField.getText().isEmpty() && !operationBox.getValue().equals("operation") && savingDir != null) {
+        if (!pathTextField.getText().isEmpty() && !operationBox.getValue().equals("Operation") && savingDir != null) {
 
             startButton.setDisable(false);
         }

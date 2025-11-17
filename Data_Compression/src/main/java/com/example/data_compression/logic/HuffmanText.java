@@ -1,39 +1,11 @@
 package com.example.data_compression.logic;
 
-import kotlin.Pair;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-public class HuffmanDemo {
-    public static class Node implements Comparable<Node> {
-        int value;
-        int freq;
-        Node left, right;
-        Node(int value, int freq) {
-            this.value = value;
-            this.freq = freq;
-        }
-        Node(int value, int freq, Node left, Node right) {
-            this.value = value;
-            this.freq = freq;
-            this.left = left;
-            this.right = right;
-        }
-        public boolean isLeaf() {
-            return (left == null) && (right == null);
-        }
-        public int compareTo(Node other) {
-            return this.freq - other.freq;
-        }
-    }
+public class HuffmanText extends Huffman{
+
     public static HashMap<Integer, Integer> buildFrequencyMap(String data) {
         HashMap<Integer, Integer> freqMap = new HashMap<>();
         for (char ch : data.toCharArray()) {
@@ -42,30 +14,8 @@ public class HuffmanDemo {
         freqMap.put(256, 1);
         return freqMap;
     }
-    public static Node buildHuffmanTree(HashMap<Integer, Integer> freqMap) {
-        PriorityQueue<Node> pq = new PriorityQueue<>();
-        for (HashMap.Entry<Integer, Integer> entry : freqMap.entrySet()) {
-            pq.offer(new Node(entry.getKey(), entry.getValue()));
-        }
-        while (pq.size() > 1) {
-            Node left = pq.poll();
-            Node right = pq.poll();
-            // Internal nodes use a dummy character, here '\0'
-            assert right != null;
-            Node parent = new Node('\0', left.freq + right.freq, left, right);
-            pq.offer(parent);
-        }
-        return pq.poll();
-    }
 
-    public static void generateCodes(Node root, String code, HashMap<Integer, String> codeMap) {
-        if(root == null) return;
-        if(root.isLeaf()) {
-            codeMap.put(root.value, !code.isEmpty() ? code : "0");
-        }
-        generateCodes(root.left, code + '0', codeMap);
-        generateCodes(root.right, code + '1', codeMap);
-    }
+
     public static void writeHeader(DataOutputStream dos, HashMap<Integer, Integer> freqMap) throws IOException {
         dos.writeInt(freqMap.size());
         for (HashMap.Entry<Integer, Integer> entry : freqMap.entrySet()) {
@@ -84,7 +34,8 @@ public class HuffmanDemo {
         return freqMap;
     }
 
-    public static void compress(String inputFile, String outputFile) throws IOException {
+    @Override
+    public void compress(String inputFile, String outputFile) throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new FileReader(inputFile));
         String line;
@@ -143,7 +94,7 @@ public class HuffmanDemo {
         System.out.println("Compressed file size: " + outFile.length() + " bytes");
     }
 
-    public static void decompress(String inputFile, String outputFile) throws IOException {
+    public void decompress(String inputFile, String outputFile) throws IOException {
         DataInputStream dis = new DataInputStream(new FileInputStream(inputFile));
         // Read header to obtain the frequency map
         HashMap<Integer, Integer> freqMap = readHeader(dis);

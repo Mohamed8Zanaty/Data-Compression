@@ -1,7 +1,7 @@
 package com.example.data_compression.ui;
 
 import com.example.data_compression.logic.FileHandler;
-import com.example.data_compression.logic.HuffmanDemo;
+import com.example.data_compression.logic.HuffmanText;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +44,7 @@ public class TextStageController implements Initializable {
     private final String [] operations={"Compress","Decompress"};
     private File savingDir;
     private final PauseTransition delay = new PauseTransition(Duration.seconds(1));
+    HuffmanText huffman =  new HuffmanText();
 
     @FXML
     private void browseButtonHandler() throws IOException {
@@ -59,7 +60,7 @@ public class TextStageController implements Initializable {
     private void startCompressionButton() throws IOException {
         delay.setOnFinished(event -> result.setText(""));
         String extension;
-        if(operationBox.getValue().equals("compress")) extension = "bin";
+        if(operationBox.getValue().equals("Compress")) extension = "bin";
         else extension = "txt";
         Pair<Path,Path> Files = inputAndOutputPaths(extension);
         String realExt = FileHandler.getExtension(Files.getFirst());
@@ -70,9 +71,9 @@ public class TextStageController implements Initializable {
         }
         else {
             if(extension.equals("bin"))
-                HuffmanDemo.compress(String.valueOf(Files.getFirst()), String.valueOf(Files.getSecond()));
+                huffman.compress(String.valueOf(Files.getFirst()), String.valueOf(Files.getSecond()));
             else
-                HuffmanDemo.decompress(String.valueOf(Files.getFirst()), String.valueOf(Files.getSecond()));
+                huffman.decompress(String.valueOf(Files.getFirst()), String.valueOf(Files.getSecond()));
 
             inputFilePathLabel.clear();
             operationBox.setValue("Operation");
@@ -98,7 +99,7 @@ public class TextStageController implements Initializable {
         DirectoryChooser directoryChooser=new DirectoryChooser();
         Stage st=(Stage) upAnchor.getScene().getWindow();
         savingDir = directoryChooser.showDialog(st);
-        if(!inputFilePathLabel.getText().isEmpty() && !operationBox.getValue().equals("operation") && savingDir != null) {
+        if(!inputFilePathLabel.getText().isEmpty() && !operationBox.getValue().equals("Operation") && savingDir != null) {
 
             startButton.setDisable(false);
         }
