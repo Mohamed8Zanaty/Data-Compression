@@ -109,6 +109,7 @@ public class ImageStageController implements Initializable {
     private void backword () {
         try {
             SceneManager.goBack();
+            System.out.println("Backword Successfully");
         } catch (IOException e) {
             e.printStackTrace();
         }

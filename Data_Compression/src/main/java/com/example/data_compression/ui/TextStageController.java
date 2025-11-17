@@ -88,8 +88,14 @@ public class TextStageController implements Initializable {
 
     }
     @FXML
-    private void backword() throws IOException {
-        SceneManager.goBack();
+    private void backword()  {
+        try {
+            SceneManager.goBack();
+            System.out.println("Backword Successfully");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
     @FXML
     private  void saveButtonHandler(){
